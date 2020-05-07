@@ -10,17 +10,17 @@ namespace NoviSDP2
 {
     public class DbInitialize
     {
-        public static void Seed(IApplicationBuilder app)
+        public static void Init(IApplicationBuilder app)
         {
 
-            //Maybe try to change this to a ctror and dependency injection
+            //Maybe try to change this to a ctor and dependency injection
 
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetService<DbTestContext>();
+            var scope = app.ApplicationServices.CreateScope();
+            
+                var context = scope.ServiceProvider.GetService<DbTestContext>();
 
-                var student1 = new Student { Name = "Gore Aap" };
-                var student2 = new Student { Name = "Smerige Vetklep" };
+                var student1 = new Student { Name = "Hans Anders" };
+                var student2 = new Student { Name = "Jan Peters" };
 
 
 
@@ -34,7 +34,7 @@ namespace NoviSDP2
                 context.SaveChanges();
 
 
-            }
+            
         }
     }
 }

@@ -63,7 +63,7 @@ namespace NoviSDP2
 
 
             //Here is initialize the DB with some mock data
-            DbInitialize.Seed(app);
+            DbInitialize.Init(app);
         }
     }
 }
