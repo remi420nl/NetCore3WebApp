@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SD2.Interface;
-using SD2.Repository;
+using NoviSDP2.Interface;
+using NoviSDP2.Repository;
 
-namespace SD2
+namespace NoviSDP2
 {
     public class Startup
     {
