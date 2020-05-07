@@ -1,0 +1,25 @@
+﻿@model StudentViewModel
+
+    <table class="table table-striped table-hover ">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Employees name</th>
+                <th>Edit item</th>
+                <th>Delete item</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model.Students)
+            {
+                <tr>
+                    <td>@student.Name</td>
+                    <td>leeg</td>
+                    <td>leeg</td>
+                    <td><a class="btn btn-info" asp-area="" asp-controller="Item" asp-action="Update" asp-route-id="1111">Edit</a></td>
+                    <td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Delete" asp-route-id="111" asp-route-employeeId="11111">Delete</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
