@@ -1,6 +1,6 @@
 using System;
 
-namespace SD2.Models
+namespace NoviSDP2.Models
 {
     public class ErrorViewModel
     {

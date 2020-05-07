@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SD2.Models;
+using NoviSDP2.Models;
 
-namespace SD2
+namespace NoviSDP2
 {
     public class DbTestContext : DbContext
     {

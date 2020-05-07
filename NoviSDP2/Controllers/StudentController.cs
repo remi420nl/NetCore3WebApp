@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SD2.Interface;
-using SD2.ViewModel;
+using NoviSDP2.Interface;
+using NoviSDP2.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SD2.Controllers
+namespace NoviSDP2.Controllers
 {
     public class StudentController : Controller
     {

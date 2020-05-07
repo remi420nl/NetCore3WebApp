@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SD2.Models
+namespace NoviSDP2.Models
 {
     public class Student
     {
