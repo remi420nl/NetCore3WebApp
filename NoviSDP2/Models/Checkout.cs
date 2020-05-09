@@ -9,6 +9,7 @@ namespace NoviSDP2.Models
     {
         public int Id { get; set; }
         public Item Item { get; set; }
+        public Student Student { get; set; }
         public DateTime From { get; set; }
         public DateTime Until { get; set; }
 

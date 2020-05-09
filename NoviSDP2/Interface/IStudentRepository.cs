@@ -9,9 +9,9 @@ namespace NoviSDP2.Interface
     public interface IStudentRepository
     {
         IEnumerable<Student> GetAll();
-        Student GetById(int id);
+        Student Get(int id);
 
-        IEnumerable<Checkout> GetCheckouts(int employeeId);
+        IEnumerable<Checkout> GetCheckouts(int studentId);
 
     }
 }
