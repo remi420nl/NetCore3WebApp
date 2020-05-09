@@ -10,7 +10,6 @@ namespace NoviSDP2.Interface
     {
         Employee Get(int id);
         IEnumerable<Employee> GetAll();
-        Employee GetById(int id);
         IEnumerable<Item> GetItems(int employeeId);
     
 

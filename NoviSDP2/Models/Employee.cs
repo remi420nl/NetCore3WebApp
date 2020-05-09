@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace NoviSDP2.Models
 {
-    public class Employee
+    public class Employee : Person
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
 
         [Required, MinLength(2), MaxLength(40)]
-        public string Name { get; set; }
-
-        public virtual IEnumerable<Item> Items { get; set; }
-
+        public override string Name { get; set; }
         //TODO:
         [EmailAddress]
-        public string Email { get; set; }
+        public override string Email { get; set; }
+        public IEnumerable<Item> Items { get; set; }
+
 
     }
 }

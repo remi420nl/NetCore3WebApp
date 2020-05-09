@@ -11,13 +11,24 @@ namespace NoviSDP2.Repository
     {
         private readonly DbTestContext _context;
 
-        public StudentRepository(DbTestContext context)
+        public StudentRepository(DbTestContext context) 
         {
             _context = context;
         }
+
+        public Student Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Student> GetAll()
         {
             return _context.Students;
+        }
+
+        public IEnumerable<Checkout> GetCheckouts(int studentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
