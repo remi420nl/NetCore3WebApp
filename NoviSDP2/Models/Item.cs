@@ -12,6 +12,7 @@ namespace NoviSDP2.Models
         [Required, MinLength(2), MaxLength(40)]
         public string Name { get; set; }
         public string Type { get; set; }
+        public Status Status { get; set; }
         public virtual Employee Employee { get; set; }
         public int EmployeeId { get; set; }
 
