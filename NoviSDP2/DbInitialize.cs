@@ -16,13 +16,13 @@ namespace NoviSDP2
             //Maybe try to change this to a ctor and dependency injection
 
             var scope = app.ApplicationServices.CreateScope();
-            
+             
                 var context = scope.ServiceProvider.GetService<DbTestContext>();
 
                 var student1 = new Student { Name = "Hans Anders" };
                 var student2 = new Student { Name = "Jan Peters" };
 
-
+                
 
                 context.Add(student1);
                 context.Add(student2);
