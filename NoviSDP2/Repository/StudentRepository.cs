@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NoviSDP2.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace NoviSDP2.Repository
 {
@@ -16,19 +17,23 @@ namespace NoviSDP2.Repository
             _context = context;
         }
 
-        public Student Get(int id)
+        public Student Get(int studentId)
         {
-            throw new NotImplementedException();
+            return GetAll()
+                .FirstOrDefault(s => s.Id == studentId);
         }
 
         public IEnumerable<Student> GetAll()
         {
-            return _context.Students;
+            return _context.Students
+                    .Include(s => s.Checkouts);
         }
 
         public IEnumerable<Checkout> GetCheckouts(int studentId)
         {
-            throw new NotImplementedException();
+            return GetAll()
+                 .FirstOrDefault(s => s.Id == studentId)
+                 .Checkouts;
         }
     }
 }

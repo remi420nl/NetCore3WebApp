@@ -19,6 +19,7 @@ namespace NoviSDP2
         public DbSet<Item> Items { get; set; }
         public DbSet<Checkout> Checkouts { get; set; }
         public DbSet<Hold> Holds { get; set; }
+        public DbSet<Status> Status { get; set; }
 
     }
 }

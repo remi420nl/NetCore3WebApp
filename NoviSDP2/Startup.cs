@@ -28,6 +28,9 @@ namespace NoviSDP2
         {
             services.AddControllersWithViews();
             services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<ICheckoutRepository, CheckoutRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             // this required InMemory Nuget Package
             services.AddDbContext<DbTestContext>(options => options.UseInMemoryDatabase("TestString"));
