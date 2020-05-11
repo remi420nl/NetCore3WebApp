@@ -13,13 +13,13 @@ namespace NoviSDP2.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public Status Status { get; set; }
-        public virtual Employee Employee { get; set; }
+        public Employee Employee { get; set; }
         public int EmployeeId { get; set; }
 
-        public virtual Student Borrower { get; set; }
+        public Student Borrower { get; set; }
         public int BorrowerId { get; set; }
         public decimal Price { get; set; }
-
+        public string ImageUrl { get; set; }
 
     }
 }

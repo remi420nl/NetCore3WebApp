@@ -1,4 +1,5 @@
-﻿using NoviSDP2.Interface;
+﻿using Microsoft.EntityFrameworkCore;
+using NoviSDP2.Interface;
 using NoviSDP2.Models;
 using System;
 using System.Collections.Generic;
@@ -17,22 +18,31 @@ namespace NoviSDP2.Repository
         }
         public void Add(Item item)
         {
-            throw new NotImplementedException();
+            _context.Add(item);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Item> GetAll()
         {
-            throw new NotImplementedException();
+            
+            return _context.Items
+                    .Include(i => i.Employee)
+                    .Include(i => i.Status);
+                
         }
 
         public Item GetById(int id)
         {
-            throw new NotImplementedException();
+            return GetAll()
+                .FirstOrDefault(i => i.Id == id);
+               
         }
 
         public string GetType(int id)
         {
-            throw new NotImplementedException();
+            var item = GetById(id);
+
+            return item.Type;
         }
     }
 }

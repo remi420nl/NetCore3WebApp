@@ -22,16 +22,57 @@ namespace NoviSDP2
                 var student1 = new Student { Name = "Hans Anders" };
                 var student2 = new Student { Name = "Jan Peters" };
 
-                
+            var Beschikbaar = new Status { Name = "Beschikbaar" };
+            var Uitgeleend = new Status { Name = "Uitgeleend" };
+           
 
-                context.Add(student1);
-                context.Add(student2);
+            var employee1 = new Employee
+            {
+                Name = "Rob Snel",
+
+            };
+
+            context.Add(employee1);
+
+            var item1 = new Item
+            {
+                Name = "Mona Lisa",
+                Employee = employee1,
+                Price = 150,
+                Type = "Schilderij",
+                Status = Beschikbaar
+
+            };
+
+            var item2 = new Item
+            {
+                Name = "Vrijheidsbeeld",
+                Employee = employee1,
+                Price = 275,
+                Type = "Beeld",
+                Status = Beschikbaar
+            };
 
 
 
-                // context.Employees.Add(docent1);
-                //  context.Employees.Add(docent2);
-                context.SaveChanges();
+            context.Add(student1);
+            context.Add(student2);
+            
+            context.Add(item1);
+            context.Add(Beschikbaar);
+            context.Add(Uitgeleend);
+            context.Add(item2);
+
+
+
+
+
+
+
+
+            // context.Employees.Add(docent1);
+            //  context.Employees.Add(docent2);
+            context.SaveChanges();
 
 
             

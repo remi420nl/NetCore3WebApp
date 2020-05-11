@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ItemViewModel>
+
+<h2>Kunst</h2>
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>Eigenaar</th>
+            <th>Naam</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Prijs</th>
+            <th>Leen</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.Owner</td>
+            <td>@item.Name</td>
+            <td>@item.Type</td>
+            <td>@item.Status</td>
+            <td>@item.Price</td>
+            @if (item.Available)
+            {<td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Checkout" asp-route-id="@item.Id">Leen</a></td>}
+            else
+            {<td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Hold" asp-route-id="@item.Id">Reserveer</a></td>}
+        </tr>
+        }
+    </tbody>
+</table>

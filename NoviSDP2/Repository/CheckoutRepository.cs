@@ -35,25 +35,33 @@ namespace NoviSDP2.Repository
             if (holds.Any())
             {
                 var oldest = holds.OrderBy(h => h.HoldDate).FirstOrDefault();
-                var studentId = oldest.Student.Id;
+                var student = oldest.Student;
+                var days = oldest.chosenDays;
 
-                CheckoutItem(studentId);
+
+                CheckoutItem(item ,student, days);
 
                 return;
             }
 
-            UpdateStatus(itemId, "Available");
+            UpdateStatus(itemId, "Beschikbaar");
 
             _context.SaveChanges();
         }
 
-        private void UpdateStatus(int itemId, string status)
+
+        private void UpdateStatus(int itemId, string statusName)
         {
             var item = GetItem(itemId);
 
-            _context.Update(item); 
+            _context.Update(item);
 
-            item.Status.Name = status;
+            var status = _context.Status.FirstOrDefault(s => s.Name == statusName);
+            
+            //todo: some nullchecks here
+
+            item.Status = status;
+          
         }
 
         public IEnumerable<Hold> CheckHolds(int itemId)
@@ -64,21 +72,29 @@ namespace NoviSDP2.Repository
                 .Where(h => h.Item.Id == itemId);
         }
 
-        public void CheckoutItem(int itemId)
+        public void CheckoutItem(Item item,Student student, int days)
         {
             // save the current time
             var time = DateTime.Now;
+            var returnTime = time.AddDays(days);
 
-            var item = GetItem(itemId);
 
+            var checkout = new Checkout
+            {
+                Item = item,
+                Student = student,
+                From = time,
+                Until = returnTime
+            };
 
-            // nog in te vullen <<<<<<<<<<<<<<<<<<<<<
+            _context.Add(checkout);
 
-            UpdateStatus(itemId, "Uitgeleend");
-
+            UpdateStatus(item.Id, "Uitgeleend");
+          
+            _context.SaveChanges();
         }
 
-        //helper method to avoid repeating code
+        //helper method for this class to avoid repeating code
         public Item GetItem(int itemId)
         {
             return _context.Items.FirstOrDefault(i => i.Id == itemId);
@@ -87,7 +103,9 @@ namespace NoviSDP2.Repository
         //Get collection of all CHeckout intances
         public IEnumerable<Checkout> GetAll()
         {
-            return _context.Checkouts;
+            return _context.Checkouts
+                .Include(c => c.Item)
+                .Include(c => c.Student);
         }
 
         public bool IsCheckedOut(int itemId)
