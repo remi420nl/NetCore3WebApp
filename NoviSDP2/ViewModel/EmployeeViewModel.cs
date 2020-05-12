@@ -12,6 +12,6 @@ namespace NoviSDP2.ViewModel
         public string Name { get; set; }
         public string Email { get; set; }
         public string Department { get; set; }
-
+        public IEnumerable<Item> Items { get; set; }
     }
 }

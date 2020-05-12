@@ -41,7 +41,8 @@ namespace NoviSDP2
                 Price = 150,
                 Type = "Schilderij",
                 Status = Beschikbaar,
-                Description = "Dit is een schilderij blabla"
+                Description = "Dit is een schilderij blabla",
+        
 
             };
 

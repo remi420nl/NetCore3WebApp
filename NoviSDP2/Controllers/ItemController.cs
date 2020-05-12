@@ -6,6 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+
+using Microsoft.Extensions.Hosting.Internal;
+using Microsoft.AspNetCore.Hosting;
 
 namespace NoviSDP2.Controllers
 {
@@ -14,12 +18,17 @@ namespace NoviSDP2.Controllers
         private readonly IItemRepository _itemRep;
         private readonly ICheckoutRepository _checkoutRep;
         private readonly IStudentRepository _studentRep;
+        private readonly IWebHostEnvironment _hosting;
+        private readonly IEmployeeRepository _employeeRep;
 
-        public ItemController(IItemRepository itemRep, ICheckoutRepository checkoutRep, IStudentRepository studentRep)
+        public ItemController(IItemRepository itemRep, ICheckoutRepository checkoutRep,
+            IStudentRepository studentRep,IEmployeeRepository employeeRep , IWebHostEnvironment hosting)
         {
             _itemRep = itemRep;
             _checkoutRep = checkoutRep;
             _studentRep = studentRep;
+            _hosting = hosting;
+            _employeeRep = employeeRep;
         }
 
 
@@ -31,6 +40,7 @@ namespace NoviSDP2.Controllers
                 Id = i.Id,
                 Name = i.Name,
                 Owner = i.Employee.Name,
+                OwnerId = i.Employee.Id,
                 Type = i.Type,
                 Price = i.Price,
                 Available = _checkoutRep.IsCheckedOut(i.Id) ? false : true,
@@ -39,6 +49,7 @@ namespace NoviSDP2.Controllers
 
             });
 
+            Console.WriteLine("size of the item index model " + model.Count());
             
        
 
@@ -69,7 +80,66 @@ namespace NoviSDP2.Controllers
             return View(model);
         }
 
+        public IActionResult Create()
+        {
+            var model = new ItemViewModel
+            {
+                Employees = _employeeRep.GetAll(),
+                Item = new Item { }
+            };
 
+            return View(model);
+
+        }
+
+        [HttpPost]
+        public IActionResult Create(Item item)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(item);
+            }
+
+           
+
+            //Add new Available Status
+            item.Status = new Status { Name = "Beschikbaar" };
+            _itemRep.Create(item);
+
+            UploadPicture(item.Id);
+          
+                
+            return RedirectToAction("Index");
+
+        }
+
+        private void UploadPicture(int itemId)
+        {
+
+        
+            string wwwroot = _hosting.WebRootPath;
+            var files = HttpContext.Request.Form.Files;
+
+
+            if (files.Count() != 0)
+            {
+                var imageUrl = @"images\item\";
+                // extensie jpg
+                var extension = Path.GetExtension(files[0].FileName);
+                var relativePath = imageUrl + itemId + extension;
+                var absolutePath = Path.Combine(wwwroot, relativePath);
+
+                //upload on server
+                using (var fileStream = new FileStream(absolutePath, FileMode.Create))
+                {
+                    files[0].CopyTo(fileStream);
+                }
+                _itemRep.SavePhotoUrl(itemId, relativePath);
+
+            }
+
+        }
 
         public IActionResult Checkout (int id)
         {

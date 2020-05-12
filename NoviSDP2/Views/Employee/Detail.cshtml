@@ -1,0 +1,57 @@
+﻿@model EmployeeViewModel
+
+<div class="container">
+    <div class="header clearfix detailHeading">
+        <h2 class="text-muted">Medewerker Details</h2>
+    </div>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-4">
+                <div>
+                    <h2>@Model.Name</h2>
+                    <div class="">
+                        <div>Email Adres: @Model.Email</div>
+                        <div>Afdeling @Model.Department</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4>Kunst in bezit:</h4>
+                @if (@Model.Items.Any())
+                {
+                    <div>
+                        <ul>
+                            @foreach (var item in @Model.Items)
+                            {
+                                <li>
+                                    @item.Name
+                                    <ul>
+                                        <li>
+                                            Naam: @item.Name
+                                        </li>
+                                        <li>
+                                            Type: @item.Type
+                                        </li>
+                                        <li>
+                                            Prijs: @item.Price
+                                        </li>
+                                        <li>
+                                            Status: @item.Status.Name
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div>Momenteel geen Kunst in bezit</div>
+
+                }
+            </div>
+
+            
+        </div>
+    </div>
+</div>
