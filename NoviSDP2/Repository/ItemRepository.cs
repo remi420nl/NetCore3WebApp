@@ -16,26 +16,34 @@ namespace NoviSDP2.Repository
         {
             _context = context;
         }
-        public void Add(Item item)
+        public void Create(Item item)
         {
             _context.Add(item);
             _context.SaveChanges();
+
         }
 
         public IEnumerable<Item> GetAll()
         {
-            
+
             return _context.Items
                     .Include(i => i.Employee)
                     .Include(i => i.Status);
-                
+
+        }
+
+        public IEnumerable<Item> GetByEmployee(int employeeId)
+        {
+            return GetAll()
+                   .Where(i => i.Employee.Id == employeeId);
+
         }
 
         public Item GetById(int id)
         {
             return GetAll()
                 .FirstOrDefault(i => i.Id == id);
-               
+
         }
 
         public string GetType(int id)
@@ -43,6 +51,15 @@ namespace NoviSDP2.Repository
             var item = GetById(id);
 
             return item.Type;
+        }
+
+        public void SavePhotoUrl(int itemId, string relativePath)
+        {
+
+            GetById(itemId).ImageUrl = "\\" + relativePath ;
+          
+       
+            _context.SaveChanges();
         }
     }
 }

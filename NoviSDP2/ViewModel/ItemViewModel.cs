@@ -12,10 +12,12 @@ namespace NoviSDP2.ViewModel
         public string Name { get; set; }
         public string Type { get; set; }
         public string Owner { get; set; }
+        public int OwnerId { get; set; }
         public decimal Price { get; set; }
         public string ImageUrl { get; set; }
         public bool Available { get; set; }
         public IEnumerable<Student> Students { get; set; }
+        public IEnumerable<Employee> Employees { get; set; }
         public Item Item { get; set; }
         public int Days { get; set; }
         public string Status { get; set; }

@@ -12,10 +12,12 @@ namespace NoviSDP2.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _employeeRep;
+        private readonly IItemRepository _itemRep;
 
-        public EmployeeController(IEmployeeRepository employeeRep)
+        public EmployeeController(IEmployeeRepository employeeRep, IItemRepository itemRep)
         {
             _employeeRep = employeeRep;
+            _itemRep = itemRep;
         }
 
         public IActionResult Index()
@@ -41,10 +43,23 @@ namespace NoviSDP2.Controllers
         public IActionResult Create(Employee employee)
         {
             _employeeRep.Create(employee);
-
-
             return RedirectToAction("Index");
+        }
 
+        public IActionResult Detail(int id)
+        {
+            
+            var employee = _employeeRep.Get(id);
+            var model = new EmployeeViewModel
+            {
+                Name = employee.Name,
+                Email = employee.Email,
+                Department = employee.Department,
+                Items = _itemRep.GetByEmployee(id)
+             
+            };
+
+            return View(model);
         }
     }
 

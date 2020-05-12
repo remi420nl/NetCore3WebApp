@@ -10,7 +10,9 @@ namespace NoviSDP2.Interface
     {
         IEnumerable<Item> GetAll();
         Item GetById(int id);
-        void Add(Item item);
+        void Create(Item item);
         string GetType(int id);
+        IEnumerable<Item> GetByEmployee(int employeeId);
+        void SavePhotoUrl(int itemId, string relativePath);
     }
 }

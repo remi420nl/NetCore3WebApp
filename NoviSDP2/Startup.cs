@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using NoviSDP2.Interface;
 using NoviSDP2.Repository;
@@ -32,7 +35,7 @@ namespace NoviSDP2
             services.AddScoped<ICheckoutRepository, CheckoutRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
-            // this required InMemory Nuget Package
+            // this requires InMemory Nuget Package
             services.AddDbContext<DbTestContext>(options => options.UseInMemoryDatabase("TestString"));
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +53,7 @@ namespace NoviSDP2
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
 
             app.UseRouting();
 

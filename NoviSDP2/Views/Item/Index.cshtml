@@ -17,22 +17,22 @@
         {
        
         <tr>
-            <td>@item.Owner</td>
-        
-            <td><a asp-controller="Item" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></td>
-            
-                <td>@item.Type</td>
-                <td>@item.Status</td>
-                <td>@item.Price</td>
+            <td><a asp-controller="Employee" asp-action="Detail" asp-route-id="@item.OwnerId">@item.Owner</a></td>
 
-                @if (item.Available)
-                {
-                    <td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Checkout" asp-route-id="@item.Id">Leen</a></td>
-                }
-                else
-                {
-                    <td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Hold" asp-route-id="@item.Id">Reserveer</a></td>
-                }
+            <td> <a asp-controller="Item" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></td>
+
+            <td>@item.Type</td>
+            <td>@item.Status</td>
+            <td>@item.Price</td>
+
+            @if (item.Available)
+            {
+                <td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Checkout" asp-route-id="@item.Id">Leen</a></td>
+            }
+            else
+            {
+                <td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Hold" asp-route-id="@item.Id">Reserveer</a></td>
+            }
 
         </tr>
         

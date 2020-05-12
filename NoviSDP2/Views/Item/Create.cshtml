@@ -1,0 +1,38 @@
+﻿@model ItemViewModel
+
+<div class="row orderForm">
+    <form asp-controller="Item" enctype="multipart/form-data" asp-action="Create" method="post" class="form-horizontal" role="form">
+        <h3 class="col-md-offset-2">Nieuw Kunst Object Aanmaken</h3>
+        <div class="form-group">
+
+            <div class="col-md-8">
+                <input asp-for="Item.Name" class="form-control" placeholder="Naam" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+                <input asp-for="Item.Type" class="form-control" placeholder="Type" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+                <input asp-for="Item.Description" class="form-control" placeholder="Beschrijving" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+                <input asp-for="Item.Price" class="form-control" placeholder="Prijs" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+                <label asp-for="Item.ImageUrl" class="form-control">Afbeelding</label>
+                <input type="file" name="files" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-8 control-label">Medewerker kiezen</label>
+            <div class="col-md-8">
+
+                @Html.DropDownListFor(y => y.Item.EmployeeId,
+                                             new SelectList(Model.Employees.Select(x => new { Value = x.Id, Text = x.Name }), "Value", "Text"),
+                                             "Medewerker",
+                                             htmlAttributes: new { @class = "form-control border-input" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="btn-group col-md-offset-2 col-md-6">
+                <input class="btn btn-default" type="submit" value="Terug" asp-controller="Item" asp-action="Index" />
+                <input class="btn btn-success" type="submit" value="Opslaan" />
+            </div>
+        </div>
+    </form>
+</div>
