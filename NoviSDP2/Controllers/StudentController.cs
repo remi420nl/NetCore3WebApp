@@ -12,10 +12,12 @@ namespace NoviSDP2.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentRepository _studentRep;
+        private readonly ICheckoutRepository _checkoutRep;
 
-        public StudentController(IStudentRepository studentRep)
+        public StudentController(IStudentRepository studentRep, ICheckoutRepository checkoutRep)
         {
             _studentRep = studentRep;
+            _checkoutRep = checkoutRep;
         }
 
         public IActionResult Index()
@@ -45,6 +47,23 @@ namespace NoviSDP2.Controllers
 
             return RedirectToAction("Index");
 
+        }
+
+        public IActionResult Detail(int id)
+        {
+            var student = _studentRep.Get(id);
+            var checkouts = _checkoutRep.GetByStudent(id);
+
+            var model = new StudentViewModel
+            {
+                Name = student.Name,
+                Email = student.Email,
+                Major = student.Major,
+                Checkouts = checkouts,
+                Holds = student.Holds
+            };
+
+            return View(model);
         }
     }
 }

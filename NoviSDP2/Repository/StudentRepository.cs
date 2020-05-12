@@ -26,7 +26,8 @@ namespace NoviSDP2.Repository
         public IEnumerable<Student> GetAll()
         {
             return _context.Students
-                    .Include(s => s.Checkouts);
+                    .Include(s => s.Checkouts)
+                    .Include(s => s.Holds);
         }
 
         public IEnumerable<Checkout> GetCheckouts(int studentId)

@@ -11,6 +11,7 @@ namespace NoviSDP2.Models
         public override int Id { get; set; }
         public override string Name { get; set; }
         public IEnumerable<Checkout> Checkouts { get; set; }
+        public IEnumerable<Hold> Holds { get; set; }
         [EmailAddress]
         public override string Email { get; set; }
         public string Major { get; set; }
