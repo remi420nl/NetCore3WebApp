@@ -13,6 +13,7 @@ namespace NoviSDP2.Models
         public IEnumerable<Checkout> Checkouts { get; set; }
         [EmailAddress]
         public override string Email { get; set; }
+        public string Major { get; set; }
 
     }
 }

@@ -35,5 +35,11 @@ namespace NoviSDP2.Repository
                  .FirstOrDefault(s => s.Id == studentId)
                  .Checkouts;
         }
+
+        public void Create (Student student)
+        {
+            _context.Add(student);
+            _context.SaveChanges();
+        }
     }
 }

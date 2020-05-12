@@ -3,23 +3,25 @@
 <table class="table table-striped table-hover ">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Totaal geleende kunst</th>
-            <th>Edit student</th>
-            <th>Delete student</th>
+            <th>Naam</th>
+            <th>Studie</th>
+            <th>Email</th>
+            <th>Geleende kunst</th>
+            <th>Aanpassen</th>
+            <th>Verwijder</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var student in Model.Students)
         {
-            <tr>
-                <td>@student.Name</td>
-                <td>leeg</td>
-                <td>leeg</td>
-                <td><a class="btn btn-info" asp-area="" asp-controller="Item" asp-action="Update" asp-route-id="1111">Edit</a></td>
-                <td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Delete" asp-route-id="111" asp-route-employeeId="11111">Delete</a></td>
-            </tr>
+        <tr>
+            <td>@student.Name</td>
+            <td>@student.Major</td>
+            <td>@student.Email</td>
+            <th>@student.Checkouts.Count()</th>
+            <td><a class="btn btn-info" asp-area="" asp-controller="Student" asp-action="Update" asp-route-id="1111">Aanpassen</a></td>
+            <td><a class="btn btn-danger" asp-area="" asp-controller="Student" asp-action="Delete" asp-route-id="111" asp-route-employeeId="11111">Verwijder</a></td>
+        </tr>
         }
     </tbody>
 </table>

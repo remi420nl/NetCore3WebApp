@@ -16,7 +16,7 @@ namespace NoviSDP2.Models
         [EmailAddress]
         public override string Email { get; set; }
         public IEnumerable<Item> Items { get; set; }
-
+        public string Department { get; set; }
 
     }
 }
