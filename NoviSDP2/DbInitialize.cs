@@ -40,7 +40,8 @@ namespace NoviSDP2
                 Employee = employee1,
                 Price = 150,
                 Type = "Schilderij",
-                Status = Beschikbaar
+                Status = Beschikbaar,
+                Description = "Dit is een schilderij blabla"
 
             };
 
@@ -50,7 +51,8 @@ namespace NoviSDP2
                 Employee = employee1,
                 Price = 275,
                 Type = "Beeld",
-                Status = Beschikbaar
+                Status = Beschikbaar,
+                Description = "Dit is een beeld blabla"
             };
 
 

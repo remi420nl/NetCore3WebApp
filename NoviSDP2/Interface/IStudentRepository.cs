@@ -10,8 +10,8 @@ namespace NoviSDP2.Interface
     {
         IEnumerable<Student> GetAll();
         Student Get(int id);
-
         IEnumerable<Checkout> GetCheckouts(int studentId);
+        void Create(Student student);
 
     }
 }

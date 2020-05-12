@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace NoviSDP2.ViewModel
 {
-    public class StudentViewModel
-    {   
-        public IEnumerable<Student> Students { get; set; }
+    public class EmployeeViewModel
+    {
+        public IEnumerable<Employee> Employees { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public string Major { get; set; }
+        public string Department { get; set; }
+
     }
 }

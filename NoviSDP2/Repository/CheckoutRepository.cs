@@ -90,6 +90,8 @@ namespace NoviSDP2.Repository
             _context.Add(checkout);
 
             UpdateStatus(item.Id, "Uitgeleend");
+
+            item.Borrower = student.Name;
           
             _context.SaveChanges();
         }

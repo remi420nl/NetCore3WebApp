@@ -45,6 +45,31 @@ namespace NoviSDP2.Controllers
             return View(model);
         }
 
+        public IActionResult Detail(int id)
+        {
+            var item = _itemRep.GetById(id);
+            var model = new ItemViewModel
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Owner = item.Employee.Name,
+                Type = item.Type,
+                Price = item.Price,
+                Available = _checkoutRep.IsCheckedOut(item.Id) ? false : true,
+                Status = item.Status.Name,
+                Description = item.Description,
+                ImageUrl = item.ImageUrl,
+                Borowwer = item.Borrower
+
+            };
+
+
+
+
+            return View(model);
+        }
+
+
 
         public IActionResult Checkout (int id)
         {
@@ -77,7 +102,7 @@ namespace NoviSDP2.Controllers
             var item = _itemRep.GetById(viewModel.Id);
             var days = viewModel.Days;
 
-            item.Borrower = student;
+            item.Borrower = student.Name;
 
             _checkoutRep.CheckoutItem(item, student, days);
 

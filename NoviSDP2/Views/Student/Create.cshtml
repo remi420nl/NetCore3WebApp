@@ -1,0 +1,24 @@
+﻿@model Student
+
+<div class="row orderForm">
+    <form asp-controller="Student" asp-action="Create" method="post" class="form-horizontal" role="form">
+        <h3 class="col-md-offset-2">Nieuwe Student Aanmaken</h3>
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <div class="col-md-8">
+                <input asp-for="Name" class="form-control" placeholder="Voor en Achternaam" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+                <input asp-for="Major" class="form-control" placeholder="Studierichting" />
+                <span asp-validation-for="Major" class="text-danger"></span>
+                <input asp-for="Email" class="form-control" placeholder="voorbeeld@novi.nl" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="btn-group col-md-offset-2 col-md-6">
+                <input class="btn btn-default" type="submit" value="Terug" asp-controller="Student" asp-action="Index" />
+                <input class="btn btn-success" type="submit" value="Opslaan" />
+            </div>
+        </div>
+    </form>
+</div>

@@ -19,6 +19,8 @@ namespace NoviSDP2.ViewModel
         public Item Item { get; set; }
         public int Days { get; set; }
         public string Status { get; set; }
+        public string Borowwer { get; set; }
+        public string Description { get; set; }
     }
 
 }

@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace NoviSDP2.Controllers
 {
-    public class StudentController : Controller
+    public class EmployeeController : Controller
     {
-        private readonly IStudentRepository _studentRep;
+        private readonly IEmployeeRepository _employeeRep;
 
-        public StudentController(IStudentRepository studentRep)
+        public EmployeeController(IEmployeeRepository employeeRep)
         {
-            _studentRep = studentRep;
+            _employeeRep = employeeRep;
         }
 
         public IActionResult Index()
         {
 
-            var students = _studentRep.GetAll();
+            var employees = _employeeRep.GetAll();
 
-            var model = new StudentViewModel()
+            var model = new EmployeeViewModel()
             {
-                Students = students
+                Employees = employees
             };
 
             return View(model);
@@ -38,13 +38,14 @@ namespace NoviSDP2.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Student student)
+        public IActionResult Create(Employee employee)
         {
-            _studentRep.Create(student);
+            _employeeRep.Create(employee);
 
 
             return RedirectToAction("Index");
 
         }
     }
+
 }

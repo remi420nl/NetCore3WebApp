@@ -16,10 +16,11 @@ namespace NoviSDP2.Models
         public Employee Employee { get; set; }
         public int EmployeeId { get; set; }
 
-        public Student Borrower { get; set; }
+        public string Borrower { get; set; }
         public int BorrowerId { get; set; }
         public decimal Price { get; set; }
         public string ImageUrl { get; set; }
+        public string Description { get; set; }
 
     }
 }

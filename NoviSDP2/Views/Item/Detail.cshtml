@@ -1,2 +1,46 @@
 ﻿@model ItemViewModel
 
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-4">
+                <div>
+                    <img class="detailHeading" src="@Model.ImageUrl" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <p>@Model.Name</p>
+                <p>@Model.Status</p>
+                <p>@Model.Type</p>
+                <div class="col-md-4">
+                    <p>Beschrijving</p>
+                    <p>@Model.Description</p>
+                </div>
+
+
+                @if (Model.Status == "Uitgeleend")
+                {
+                    <p>Uitgeleend aan: @Model.Borowwer</p>
+                    <p>Uitgeleend tot: ....nog doen .....</p>
+
+                    <p>
+                        <a class="btn btn-lg btn-success" role="button" asp-controller="Item"
+                           asp-action="Checkin" asp-route-id="@Model.Id">Inleveren</a>
+                    </p>
+                    <p>
+                        <a class="btn btn-lg btn-warning" role="button" asp-controller="Item"
+                           asp-action="Hold" asp-route-id="@Model.Id">Reserveer</a>
+                    </p>
+                }
+
+                @if (Model.Status == "Beschikbaar")
+                {
+                    <p>
+                        <a class="btn btn-lg btn-info" role="button" asp-controller="Item"
+                           asp-action="Checkout" asp-route-id="@Model.Id">Leen</a>
+                    </p>
+                }
+
+            </div>
+
+            </div>
+    </div>
