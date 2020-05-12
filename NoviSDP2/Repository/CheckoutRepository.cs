@@ -110,6 +110,14 @@ namespace NoviSDP2.Repository
                 .Include(c => c.Student);
         }
 
+        public IEnumerable<Checkout> GetByStudent(int studentId)
+        {
+            return _context.Checkouts
+                .Include(c => c.Item)
+                .Include(c => c.Student)
+                .Where(c => c.Student.Id == studentId);
+        }
+
         public bool IsCheckedOut(int itemId)
         {
             //debug

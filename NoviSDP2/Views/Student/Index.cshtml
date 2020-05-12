@@ -15,7 +15,7 @@
         @foreach (var student in Model.Students)
         {
         <tr>
-            <td>@student.Name</td>
+            <td><a asp-controller="Student" asp-action="Detail" asp-route-id="@student.Id">@student.Name</a></td>
             <td>@student.Major</td>
             <td>@student.Email</td>
             <th>@student.Checkouts.Count()</th>
