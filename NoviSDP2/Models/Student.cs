@@ -9,6 +9,7 @@ namespace NoviSDP2.Models
     public class Student : Person
     {
         public override int Id { get; set; }
+        [Required]
         public override string Name { get; set; }
         public IEnumerable<Checkout> Checkouts { get; set; }
         public IEnumerable<Hold> Holds { get; set; }

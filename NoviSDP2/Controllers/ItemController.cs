@@ -70,7 +70,8 @@ namespace NoviSDP2.Controllers
                 Status = item.Status.Name,
                 Description = item.Description,
                 ImageUrl = item.ImageUrl,
-                Borowwer = item.Borrower
+                Borowwer = item.Borrower,
+                Until = _checkoutRep.GetReturnDate(id)
 
             };
 
@@ -141,9 +142,9 @@ namespace NoviSDP2.Controllers
 
         }
 
+
         public IActionResult Checkout (int id)
         {
- 
 
             var item = _itemRep.GetById(id);
             var students = _studentRep.GetAll();
@@ -167,16 +168,69 @@ namespace NoviSDP2.Controllers
         [HttpPost]
         public IActionResult Checkout(ItemViewModel viewModel)
         {
-           
-            var student = _studentRep.Get(viewModel.Item.BorrowerId);
-            var item = _itemRep.GetById(viewModel.Id);
-            var days = viewModel.Days;
+            if (ModelState.IsValid)
+            {
+                var student = _studentRep.Get(viewModel.Item.BorrowerId);
+                var item = _itemRep.GetById(viewModel.Id);
+                var days = viewModel.Days;
 
-            item.Borrower = student.Name;
+                item.Borrower = student.Name;
 
-            _checkoutRep.CheckoutItem(item, student, days);
+                _checkoutRep.CheckoutItem(item, student, days);
+            }
+            return RedirectToAction("Index");
+        }
+
+        
+        public IActionResult Checkin(int id)
+        {
+
+            _checkoutRep.CheckInItem(id);
+
+         
 
             return RedirectToAction("Index");
         }
+
+
+        public IActionResult Hold(int id)
+        {
+            var item = _itemRep.GetById(id);
+            var students = _studentRep.GetAll();
+
+
+            var model = new ItemViewModel
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Owner = item.Employee.Name,
+                Type = item.Type,
+                Price = item.Price,
+                ImageUrl = item.ImageUrl,
+                Students = students,
+                Item = item
+            };
+
+            return View(model);
+
+        }
+
+
+        [HttpPost]
+        public IActionResult Hold(ItemViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var student = _studentRep.Get(viewModel.Item.HolderId);
+                var item = _itemRep.GetById(viewModel.Id);
+                var days = viewModel.Days;
+
+                item.Borrower = student.Name;
+
+                _checkoutRep.CheckoutItem(item, student, days);
+            }
+            return RedirectToAction("Index");
+        }
+
     }
 }

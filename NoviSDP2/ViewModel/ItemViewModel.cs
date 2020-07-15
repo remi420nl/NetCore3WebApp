@@ -1,6 +1,7 @@
 ﻿using NoviSDP2.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,11 +19,14 @@ namespace NoviSDP2.ViewModel
         public bool Available { get; set; }
         public IEnumerable<Student> Students { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
+
+     
         public Item Item { get; set; }
         public int Days { get; set; }
         public string Status { get; set; }
         public string Borowwer { get; set; }
         public string Description { get; set; }
+        public string Until { get; set; }
     }
 
 }

@@ -17,7 +17,10 @@ namespace NoviSDP2.Models
         public int EmployeeId { get; set; }
 
         public string Borrower { get; set; }
+        [Required(ErrorMessage = "{0} is vereist.")]
         public int BorrowerId { get; set; }
+
+        public int HolderId { get; set; }
         public decimal Price { get; set; }
 
       

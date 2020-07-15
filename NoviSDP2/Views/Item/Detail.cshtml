@@ -21,7 +21,7 @@
                 @if (Model.Status == "Uitgeleend")
                 {
                     <p>Uitgeleend aan: @Model.Borowwer</p>
-                    <p>Uitgeleend tot: ....nog doen .....</p>
+                    <p>Uitgeleend tot: @Model.Until</p>
 
                     <p>
                         <a class="btn btn-lg btn-success" role="button" asp-controller="Item"

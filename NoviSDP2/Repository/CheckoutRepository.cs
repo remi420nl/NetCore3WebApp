@@ -28,6 +28,9 @@ namespace NoviSDP2.Repository
             //get the item 
             var item = GetItem(itemId);
 
+            //get he checkout instance
+            var checkout = _context.Checkouts.FirstOrDefault(c => c.Item.Id == itemId);
+
             //check if there is any hold on this item
             var holds = CheckHolds(itemId);
 
@@ -43,6 +46,9 @@ namespace NoviSDP2.Repository
 
                 return;
             }
+
+
+            _context.Remove(checkout);
 
             UpdateStatus(itemId, "Beschikbaar");
 
@@ -74,7 +80,7 @@ namespace NoviSDP2.Repository
 
         public void CheckoutItem(Item item,Student student, int days)
         {
-            // save the current time
+            // save the current time and add the chosen day amount
             var time = DateTime.Now;
             var returnTime = time.AddDays(days);
 
@@ -129,6 +135,26 @@ namespace NoviSDP2.Repository
         public Checkout Get(int checkoutId)
         {
             return _context.Checkouts.FirstOrDefault(c => c.Id == checkoutId);
+        }
+
+        public string GetReturnDate(int itemId)
+        {
+            
+            var checkout = _context.Checkouts
+                .Include(c => c.Item)
+                .FirstOrDefault(c => c.Item.Id == itemId);
+
+            if (checkout != null)
+                return checkout.Until.ToString();
+
+
+            return "Niet uitgeleend";
+                
+            
+           
+
+            
+
         }
     }
 }
