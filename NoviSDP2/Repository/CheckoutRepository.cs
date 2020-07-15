@@ -4,6 +4,7 @@ using NoviSDP2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace NoviSDP2.Repository
@@ -31,6 +32,9 @@ namespace NoviSDP2.Repository
             //get he checkout instance
             var checkout = _context.Checkouts.FirstOrDefault(c => c.Item.Id == itemId);
 
+            _context.Remove(checkout);
+
+
             //check if there is any hold on this item
             var holds = CheckHolds(itemId);
 
@@ -41,18 +45,24 @@ namespace NoviSDP2.Repository
                 var student = oldest.Student;
                 var days = oldest.chosenDays;
 
+               
+
+                _context.Remove(oldest);
 
                 CheckoutItem(item ,student, days);
 
+              
                 return;
             }
 
 
-            _context.Remove(checkout);
+          
+
 
             UpdateStatus(itemId, "Beschikbaar");
 
             _context.SaveChanges();
+
         }
 
 
@@ -150,10 +160,7 @@ namespace NoviSDP2.Repository
 
             return "Niet uitgeleend";
                 
-            
-           
-
-            
+       
 
         }
     }

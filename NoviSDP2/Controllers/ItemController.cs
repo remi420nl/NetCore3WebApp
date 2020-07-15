@@ -71,7 +71,8 @@ namespace NoviSDP2.Controllers
                 Description = item.Description,
                 ImageUrl = item.ImageUrl,
                 Borowwer = item.Borrower,
-                Until = _checkoutRep.GetReturnDate(id)
+                Until = _checkoutRep.GetReturnDate(id),
+                Holds = _checkoutRep.CheckHolds(id)
 
             };
 
@@ -225,9 +226,7 @@ namespace NoviSDP2.Controllers
                 var item = _itemRep.GetById(viewModel.Id);
                 var days = viewModel.Days;
 
-                item.Borrower = student.Name;
-
-                _checkoutRep.CheckoutItem(item, student, days);
+                _itemRep.HoldItem(item, student, days);
             }
             return RedirectToAction("Index");
         }

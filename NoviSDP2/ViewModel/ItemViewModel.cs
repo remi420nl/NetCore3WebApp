@@ -19,8 +19,8 @@ namespace NoviSDP2.ViewModel
         public bool Available { get; set; }
         public IEnumerable<Student> Students { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
+        public IEnumerable<Hold> Holds { get; set; }
 
-     
         public Item Item { get; set; }
         public int Days { get; set; }
         public string Status { get; set; }

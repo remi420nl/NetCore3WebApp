@@ -25,7 +25,7 @@
             <td>@item.Status</td>
             <td>@item.Price</td>
 
-            @if (item.Available)
+            @if (item.Status == "Beschikbaar")
             {
                 <td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Checkout" asp-route-id="@item.Id">Leen</a></td>
             }

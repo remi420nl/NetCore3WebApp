@@ -61,5 +61,23 @@ namespace NoviSDP2.Repository
        
             _context.SaveChanges();
         }
+
+        public void HoldItem(Item item, Student student, int days)
+        {
+            var hold = new Hold
+            {
+                Item = item,
+                Student = student,
+                chosenDays = days,
+                HoldDate = DateTime.Now
+
+            };
+
+            _context.Add(hold);
+
+            _context.SaveChanges();
+
+        }
+
     }
 }
