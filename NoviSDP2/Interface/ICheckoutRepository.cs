@@ -16,7 +16,7 @@ namespace NoviSDP2.Interface
         bool IsCheckedOut(int id);
         IEnumerable<Checkout> GetByStudent(int studentId);
         string GetReturnDate(int id);
-
+        IEnumerable<Hold> CheckHolds(int id);
 
     }
 }
