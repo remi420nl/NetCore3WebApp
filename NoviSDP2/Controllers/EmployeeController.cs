@@ -61,6 +61,12 @@ namespace NoviSDP2.Controllers
 
             return View(model);
         }
+
+        public IActionResult Update(int id)
+        {
+            return null;
+
+        }
     }
 
 }
