@@ -11,7 +11,7 @@ namespace NoviSDP2.Interface
         Employee Get(int id);
         IEnumerable<Employee> GetAll();
         IEnumerable<Item> GetItems(int employeeId);
-        void Create(Employee employee);
+        void CreateAsync(Employee employee);
     
 
     }

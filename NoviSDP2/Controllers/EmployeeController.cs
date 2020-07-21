@@ -42,7 +42,7 @@ namespace NoviSDP2.Controllers
         [HttpPost]
         public IActionResult Create(Employee employee)
         {
-            _employeeRep.Create(employee);
+            _employeeRep.CreateAsync(employee);
             return RedirectToAction("Index");
         }
 
@@ -64,7 +64,7 @@ namespace NoviSDP2.Controllers
 
         public IActionResult Update(int id)
         {
-            return null;
+            return View();
 
         }
     }

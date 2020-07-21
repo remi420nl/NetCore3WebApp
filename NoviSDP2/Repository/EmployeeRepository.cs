@@ -18,10 +18,11 @@ namespace NoviSDP2.Repository
             _context = context;
         }
 
-        public void Create(Employee employee)
+        public async Task CreateAsync(Employee employee)
         {
             _context.Add(employee);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+        
         }
 
         public Employee Get(int id)
@@ -39,6 +40,11 @@ namespace NoviSDP2.Repository
         public IEnumerable<Item> GetItems(int employeeId)
         {
             return Get(employeeId).Items;
+        }
+
+        void IEmployeeRepository.CreateAsync(Employee employee)
+        {
+            throw new NotImplementedException();
         }
     }
 }
