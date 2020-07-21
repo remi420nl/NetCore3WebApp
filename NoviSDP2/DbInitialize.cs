@@ -29,6 +29,7 @@ namespace NoviSDP2
             var employee1 = new Employee
             {
                 Name = "Rob Snel",
+                Password = "abc"
 
             };
 

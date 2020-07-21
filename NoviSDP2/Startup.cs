@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using NoviSDP2.Interface;
+using NoviSDP2.Models;
 using NoviSDP2.Repository;
 
 namespace NoviSDP2
@@ -29,6 +31,7 @@ namespace NoviSDP2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllersWithViews();
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
@@ -37,9 +40,35 @@ namespace NoviSDP2
 
             // this requires InMemory Nuget Package
             services.AddDbContext<DbTestContext>(options => options.UseInMemoryDatabase("TestString"));
+
+
+            //Addidentity registrers the services
+            services.AddIdentity<Employee, IdentityRole<int>>(config => {
+                config.Password.RequiredLength = 4;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+            })
+                    .AddEntityFrameworkStores<DbTestContext>()
+                    .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "Identity.Cookie";
+                config.LoginPath = "/Home/Login";
+            });
+
+
+            var service = services.FirstOrDefault(s => s.ImplementationType == typeof(UserValidator<Employee>));
+            if (service != null)
+            {
+                services.Remove(service);
+
+
+            }
         }
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-            public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -54,18 +83,22 @@ namespace NoviSDP2
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-
+          
             app.UseRouting();
 
+
+            // who is the visitor?
+            app.UseAuthentication();
+
+            // check if the visitor is allowed
             app.UseAuthorization();
 
-          
+
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapDefaultControllerRoute();
+   
             });
 
 

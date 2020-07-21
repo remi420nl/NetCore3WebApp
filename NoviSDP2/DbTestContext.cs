@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NoviSDP2.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace NoviSDP2
 {
-    public class DbTestContext : DbContext
+    public class DbTestContext : IdentityDbContext<IdentityUser<int>,IdentityRole<int>, int>
     {
-        public DbTestContext(DbContextOptions options) : base(options)
+        public DbTestContext(DbContextOptions<DbTestContext> options) : base(options)
         {
             
         }
@@ -20,6 +22,9 @@ namespace NoviSDP2
         public DbSet<Checkout> Checkouts { get; set; }
         public DbSet<Hold> Holds { get; set; }
         public DbSet<Status> Status { get; set; }
+
+    
+    
 
     }
 }
