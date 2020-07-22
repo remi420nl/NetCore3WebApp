@@ -9,6 +9,7 @@ namespace NoviSDP2.Models
     public class Student : Person
     {
        
+
         [Required]
         public override string Name { get; set; }
         public override string Password { get; set; }

@@ -26,6 +26,7 @@ namespace NoviSDP2
             var Uitgeleend = new Status { Name = "Uitgeleend" };
            
 
+
             var employee1 = new Employee
             {
                 Name = "Rob Snel",
@@ -59,8 +60,8 @@ namespace NoviSDP2
 
 
 
-            context.Add(student1);
-            context.Add(student2);
+       //     context.Add(student1);
+         //   context.Add(student2);
             
             context.Add(item1);
             context.Add(Beschikbaar);
