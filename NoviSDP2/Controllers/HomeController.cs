@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -19,7 +20,7 @@ namespace NoviSDP2.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<Employee> _userManager;
         private readonly SignInManager<Employee> _siginManager;
-       
+      //  private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmployeeRepository _employeeRep;
 
 
@@ -30,23 +31,25 @@ namespace NoviSDP2.Controllers
 
         public HomeController(UserManager<Employee> userMananager,
             SignInManager<Employee> siginManager,
-      
+          //  RoleManager<IdentityRole> roleManager,
             IEmployeeRepository employeeRep
             )
         {
             _userManager = userMananager;
             _siginManager = siginManager;
-       
+           // roleManager = roleManager;
             _employeeRep = employeeRep;
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index(string Name)
         {
-            return View();
+           
+
+            return View((object)Name);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Employee")]      
         public IActionResult Secret()
         {
             return View();
@@ -61,10 +64,25 @@ namespace NoviSDP2.Controllers
             if (user != null)
             {
                var result = await _siginManager.PasswordSignInAsync(user, password,false,false);
-                Console.WriteLine("User Found!");
+              
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("index");
+                    Console.WriteLine("User Found and succeeded!");
+                    var claims = new List<Claim>()
+            {
+                   new Claim(ClaimTypes.Role, "Employee"),
+                   
+            };
+
+                    var identity = new ClaimsIdentity(claims, "Employee Identity");
+
+                    var userPrincipal = new ClaimsPrincipal(new[] { identity });
+
+                    await HttpContext.SignInAsync(userPrincipal);
+
+                    return RedirectToAction("Index", new { Name = user.Name});
+
+             
                 }
             }
            
@@ -74,11 +92,17 @@ namespace NoviSDP2.Controllers
 
         public IActionResult Login()
         {
+           
 
-            Console.WriteLine("result from LOGIN  VIEW method");
             return View();
         }
 
+
+        public IActionResult Authenticate()
+        {
+            return View();
+
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -106,20 +130,14 @@ namespace NoviSDP2.Controllers
            
            var result =  await _userManager.CreateAsync(user,password);
 
-           
-
-            Console.WriteLine("result from Regsiter method");
-            Console.WriteLine(result);
-            Console.WriteLine(user.Id);
-
             if (result.Succeeded)
             {
-                var signinResult = await _siginManager.PasswordSignInAsync(user, password, false, false);
 
-                if (signinResult.Succeeded)
-                {
-                    return RedirectToAction("index");
-                }
+                
+              await  _userManager.AddToRoleAsync(user, "Employee");
+                
+                    return RedirectToAction("Login");
+               
             }
 
             return RedirectToAction("index");
@@ -141,5 +159,35 @@ namespace NoviSDP2.Controllers
 
             return View();
         }
+
+        //public IActionResult Roles()
+        //{
+
+        //    var roles = _roleManager.Roles.ToList();
+
+        //    return View(roles);
+
+        //}
+
+     
+        //public IActionResult CreateRole()
+        //{
+
+
+        //    return View(new IdentityRole());
+
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> CreateRole(IdentityRole role)
+        //{
+
+        //    await _roleManager.CreateAsync(role);
+
+        //    return RedirectToAction("index");
+
+        //}
+
+
     }
 }
