@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,7 +14,12 @@ namespace NoviSDP2.ViewModel
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
- 
+        public IEnumerable<IdentityRole<int>>IdentyRoles {get; set;}
+        public int IdentyRole { get; set; }
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+
 
     }
 }

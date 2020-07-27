@@ -1,6 +1,18 @@
 ﻿@model IEnumerable<ItemViewModel>
 
 <h2>Kunst</h2>
+
+@if (User.Identity.IsAuthenticated)
+{
+
+    if (User.IsInRole("Employee"))
+    {
+        <li class="nav-item">
+            <a class="btn-outline-primary" asp-area="" asp-controller="Item" asp-action="Create">Nieuw object toevoegen</a>
+        </li>
+    }
+}
+
 <table class="table table-striped table-hover ">
     <thead>
         <tr>
@@ -15,27 +27,27 @@
     <tbody>
         @foreach (var item in Model)
         {
-       
-        <tr>
-            <td><a asp-controller="Employee" asp-action="Detail" asp-route-id="@item.OwnerId">@item.Owner</a></td>
 
-            <td> <a asp-controller="Item" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></td>
+            <tr>
+                <td><a asp-controller="Employee" asp-action="Detail" asp-route-id="@item.OwnerId">@item.Owner</a></td>
 
-            <td>@item.Type</td>
-            <td>@item.Status</td>
-            <td>@item.Price</td>
+                <td> <a asp-controller="Item" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></td>
 
-            @if (item.Status == "Beschikbaar")
-            {
-                <td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Checkout" asp-route-id="@item.Id">Leen</a></td>
-            }
-            else
-            {
-                <td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Hold" asp-route-id="@item.Id">Reserveer</a></td>
-            }
+                <td>@item.Type</td>
+                <td>@item.Status</td>
+                <td>@item.Price</td>
 
-        </tr>
-        
+                @if (item.Status == "Beschikbaar")
+                {
+                    <td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Checkout" asp-route-id="@item.Id">Leen</a></td>
+                }
+                else
+                {
+                    <td><a class="btn btn-danger" asp-area="" asp-controller="Item" asp-action="Hold" asp-route-id="@item.Id">Reserveer</a></td>
+                }
+
+            </tr>
+
         }
     </tbody>
 </table>

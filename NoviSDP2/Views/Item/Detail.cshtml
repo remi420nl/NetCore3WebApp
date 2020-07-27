@@ -2,6 +2,18 @@
 
     <div class="jumbotron">
         <div class="row">
+            @if (User.Identity.IsAuthenticated)
+            {
+
+                if (User.IsInRole("Employee") && Model.Owner == User.Identity.Name)
+                {
+                    <p>
+                        <a class="btn btn-lg btn-danger" role="button" asp-controller="Item"
+                           asp-action="Delete" asp-route-id="@Model.Id">Verwijder uit gallerij</a>
+                    </p>
+                }
+            }
+
             <div class="col-md-4">
                 <div>
                     <img src="@Html.DisplayFor(m => Model.ImageUrl)" width="200" height="150" />
@@ -9,6 +21,7 @@
             </div>
             <div class="col-md-4">
                 <p>@Model.Name</p>
+                <p>Eigenaar: @Model.Owner</p>
                 <p>@Model.Status</p>
                 <p>@Model.Type</p>
                 <div class="col-md-4">
@@ -42,7 +55,7 @@
                         }
                     }
                     else
-                    {<p>Dit object is momenteel door niemand gereserveerd</p> }
+                    {<p>Dit object is momenteel door niemand gereserveerd</p>}
 
                 }
 
@@ -56,5 +69,5 @@
 
             </div>
 
-            </div>
+        </div>
     </div>

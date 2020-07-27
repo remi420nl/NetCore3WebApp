@@ -10,9 +10,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using NoviSDP2.Controllers;
@@ -60,12 +62,26 @@ namespace NoviSDP2
               
             })
                     .AddEntityFrameworkStores<DbTestContext>()
-                   
+                  
                    
 
                     .AddDefaultTokenProviders();
 
-            
+            services.AddIdentityCore<Student>(config =>
+            {
+                config.Password.RequiredLength = 4;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+
+
+            })
+
+                                .AddSignInManager<SignInManager<Student>>()
+                                .AddRoles<IdentityRole<int>>()
+
+                                .AddDefaultTokenProviders()
+                                .AddEntityFrameworkStores<DbTestContext>();
 
 
             //services.AddAuthorization(config =>
@@ -134,5 +150,26 @@ namespace NoviSDP2
             RolesData.SeedRoles(roleManager).Wait();
         }
 
+    }
+
+    public static class IdentityExtensions
+    {
+        public static IdentityBuilder AddSecondIdentity<TUser, TRole>(
+            this IServiceCollection services)
+            where TUser : class
+            where TRole : class
+        {
+            services.TryAddScoped<IUserValidator<TUser>, UserValidator<TUser>>();
+            services.TryAddScoped<IPasswordValidator<TUser>, PasswordValidator<TUser>>();
+            services.TryAddScoped<IPasswordHasher<TUser>, PasswordHasher<TUser>>();
+            services.TryAddScoped<IRoleValidator<TRole>, RoleValidator<TRole>>();
+            services.TryAddScoped<ISecurityStampValidator, SecurityStampValidator<TUser>>();
+            services.TryAddScoped<IUserClaimsPrincipalFactory<TUser>, UserClaimsPrincipalFactory<TUser, TRole>>();
+            services.TryAddScoped<UserManager<TUser>, AspNetUserManager<TUser>>();
+            services.TryAddScoped<SignInManager<TUser>, SignInManager<TUser>>();
+            services.TryAddScoped<RoleManager<TRole>, AspNetRoleManager<TRole>>();
+
+            return new IdentityBuilder(typeof(TUser), typeof(TRole), services);
+        }
     }
 }

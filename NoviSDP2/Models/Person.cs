@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NoviSDP2.Models
 {
-    public abstract class Person : IdentityUser<int>
+    public class Person : IdentityUser<int>
     {
         //this is to set to primare key for the identity  users
         [Key]
@@ -18,11 +18,12 @@ namespace NoviSDP2.Models
             get { return base.Id; }
             set { base.Id = value; }
         }
+        [Required]
+        public  string Name { get; set; }
+        [DataType(DataType.Password)]
+        public  string Password { get; set; }
 
-        public abstract string Name { get; set; }
-        public abstract string Password { get; set; }
-
-        public override string Email { get; set; }
+        public  string Email { get; set; }
 
 
     }
