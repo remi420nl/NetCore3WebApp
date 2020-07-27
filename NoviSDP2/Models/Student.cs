@@ -10,13 +10,11 @@ namespace NoviSDP2.Models
     {
        
 
-        [Required]
-        public override string Name { get; set; }
-        public override string Password { get; set; }
+ 
         public IEnumerable<Checkout> Checkouts { get; set; }
         public IEnumerable<Hold> Holds { get; set; }
-        [EmailAddress]
-        public override string Email { get; set; }
+      
+     
         public string Major { get; set; }
 
     }
