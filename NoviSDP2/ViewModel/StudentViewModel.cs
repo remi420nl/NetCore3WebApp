@@ -10,6 +10,7 @@ namespace NoviSDP2.ViewModel
     {   
         public IEnumerable<Student> Students { get; set; }
         public string Name { get; set; }
+        public string UserName { get; set; }
         public string Email { get; set; }
         public string Major { get; set; }
         public IEnumerable<Checkout> Checkouts { get; set; }

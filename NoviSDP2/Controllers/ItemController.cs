@@ -231,5 +231,15 @@ namespace NoviSDP2.Controllers
             return RedirectToAction("Index");
         }
 
+
+    
+        public IActionResult Delete(int id)
+        {
+            _itemRep.Delete(id);
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

@@ -13,7 +13,7 @@ namespace NoviSDP2
 
         //these are the 2 roles for the employee and student that are needed for the authorization
         private static readonly string[] roles = new[] {
-        "Employee",
+        "Medewerker",
         "Student"
 
     };

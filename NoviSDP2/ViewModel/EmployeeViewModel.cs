@@ -10,6 +10,7 @@ namespace NoviSDP2.ViewModel
     {
         public IEnumerable<Employee> Employees { get; set; }
         public string Name { get; set; }
+        public string UserName { get; set; }
         public string Email { get; set; }
         public string Department { get; set; }
         public IEnumerable<Item> Items { get; set; }

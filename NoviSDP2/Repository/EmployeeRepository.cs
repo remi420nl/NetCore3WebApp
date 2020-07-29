@@ -42,9 +42,18 @@ namespace NoviSDP2.Repository
             return Get(employeeId).Items;
         }
 
-        void IEmployeeRepository.CreateAsync(Employee employee)
+       public  void Create (Employee employee)
         {
             throw new NotImplementedException();
         }
+
+
+        public void Delete(int id)
+        {
+            var employee = Get(id);
+            _context.Remove(employee);
+            _context.SaveChanges();
+        }
     }
+
 }

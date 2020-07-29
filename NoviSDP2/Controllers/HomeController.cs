@@ -24,7 +24,6 @@ namespace NoviSDP2.Controllers
         private readonly UserManager<Student> _studentManager;
         private readonly SignInManager<Student> _studentSignin;
         private readonly IAuthorizationService _authorization;
-
         private readonly RoleManager<IdentityRole<int>> _roleManager;
 
         private readonly IEmployeeRepository _employeeRep;
@@ -66,30 +65,27 @@ namespace NoviSDP2.Controllers
      
 
 
-        [Authorize(Roles = "Employee")]      
-        public IActionResult Secret()
-        {
-            return View();
-        }
 
       [HttpPost]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            
-            var employee = await _employeeManager.FindByNameAsync(username);
+
+            if (!ModelState.IsValid) { return View(); };
+
+            var employee = await _employeeManager.FindByNameAsync(model.UserName);
 
             if (employee != null)
             {
-               var result = await _employeeSignin.PasswordSignInAsync(employee, password,false,false);
+               var result = await _employeeSignin.PasswordSignInAsync(employee, model.Password,false,false);
               
                 if (result.Succeeded)
                 {
                    
                     var claims = new List<Claim>()
             {
-                   new Claim(ClaimTypes.Role, "Employee"),
-                   
-            };
+                   new Claim(ClaimTypes.Role, "Medewerker"),
+                 new Claim(ClaimTypes.IsPersistent, model.RememberMe.ToString())
+                };
 
                     var identity = new ClaimsIdentity(claims, "Employee Identity");
 
@@ -103,11 +99,11 @@ namespace NoviSDP2.Controllers
                 }
             }
 
-            var student = await _studentManager.FindByNameAsync(username);
+            var student = await _studentManager.FindByNameAsync(model.UserName);
 
             if (student != null)
             {
-                var result = await _studentSignin.PasswordSignInAsync(student, password, false, false);
+                var result = await _studentSignin.PasswordSignInAsync(student, model.Password, false, false);
 
                 if (result.Succeeded)
                 {
@@ -140,89 +136,94 @@ namespace NoviSDP2.Controllers
             return View();
         }
 
-
-        public IActionResult Authenticate()
-        {
-            return View();
-
-        }
+   
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+ 
+
+
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            Console.WriteLine(model.IdentyRole
-                ); 
-        
-            if (model.IdentyRole == 2)
+            
+
+            var result = new IdentityResult { };
+
+
+            if (ModelState.IsValid)
             {
-                var user = new Student
+
+                if (model.IdentyRole == 2)
                 {
-                    //first one is for the Identy User superclass
-                    UserName = model.UserName,
-                    Name = model.UserName,
-                    Email = model.Email,
-                    SecurityStamp = Guid.NewGuid().ToString()
+                    var user = new Student
+                    {
+                        //first one is for the Identy User superclass
+                        UserName = model.UserName,
+                        Name = model.Name,
+                        Email = model.Email,
+                        Major = model.Info,
+                        SecurityStamp = Guid.NewGuid().ToString()
 
-                };
-
-
-                var result = await _studentManager.CreateAsync(user, model.Password);
-
-
-                Console.WriteLine(result);
+                    };
 
 
+                    result = await _studentManager.CreateAsync(user, model.Password);
 
-                if (result.Succeeded)
-                {
-                   
 
-                    await _studentManager.AddToRoleAsync(user, "Student");
+                    if (result.Succeeded)
+                    {
 
-                    return RedirectToAction("Login");
+
+
+                        await _studentManager.AddToRoleAsync(user, "Student");
+
+                        return RedirectToAction("Login");
+
+                    }
 
                 }
-            }
 
 
-            if (model.IdentyRole == 1)
-            {
-                var user = new Employee
+
+                if (model.IdentyRole == 1)
                 {
-                    //first one is for the Identy User superclass
-                    UserName = model.UserName,
-                    Name = model.UserName,
-                    Email = model.Email,
-                    SecurityStamp = Guid.NewGuid().ToString()
+                    var user = new Employee
+                    {
+                        //first one is for the Identy User superclass
+                        UserName = model.UserName,
+                        Name = model.Name,
+                        Email = model.Email,
+                        Department = model.Info,
+                        SecurityStamp = Guid.NewGuid().ToString()
 
+                    };
+
+
+                    result = await _employeeManager.CreateAsync(user, model.Password);
+
+
+
+
+
+
+                    if (result.Succeeded)
+                    {
+
+
+                        await _employeeManager.AddToRoleAsync(user, "Medewerker");
+
+                        return RedirectToAction("Login");
+                    }
                 };
 
-
-                var result = await _employeeManager.CreateAsync(user, model.Password);
-
-
-
-
-
-
-                if (result.Succeeded)
-                {
-
-
-                    await _employeeManager.AddToRoleAsync(user, "Employee");
-
-                    return RedirectToAction("Login");
-                }
             }
+            Console.WriteLine(result);
 
-            return RedirectToAction("Register");
+            ViewBag.Error = result.ToString();
+
+            model.IdentyRoles = _roleManager.Roles.ToList();
+            return View(model);
 
         }
 
@@ -231,7 +232,7 @@ namespace NoviSDP2.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _employeeSignin.SignOutAsync();
-
+            await _studentSignin.SignOutAsync();
 
             return RedirectToAction("index");
         }
@@ -239,42 +240,17 @@ namespace NoviSDP2.Controllers
 
         public IActionResult Register()
         {
+            
+
             var model = new RegisterViewModel
             {
                IdentyRoles = _roleManager.Roles.ToList()
         };
-            
 
+          
             return View(model);
         }
 
-        //public IActionResult Roles()
-        //{
-
-        //    var roles = _roleManager.Roles.ToList();
-
-        //    return View(roles);
-
-        //}
-
-     
-        //public IActionResult CreateRole()
-        //{
-
-
-        //    return View(new IdentityRole());
-
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> CreateRole(IdentityRole role)
-        //{
-
-        //    await _roleManager.CreateAsync(role);
-
-        //    return RedirectToAction("index");
-
-        //}
 
 
     }

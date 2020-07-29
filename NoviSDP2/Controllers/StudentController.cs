@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NoviSDP2.Interface;
 using NoviSDP2.Models;
 using NoviSDP2.ViewModel;
@@ -20,6 +21,7 @@ namespace NoviSDP2.Controllers
             _checkoutRep = checkoutRep;
         }
 
+        [Authorize(Roles = "Student")]
         public IActionResult Index()
         {
 
@@ -54,16 +56,27 @@ namespace NoviSDP2.Controllers
             var student = _studentRep.Get(id);
             var checkouts = _checkoutRep.GetByStudent(id);
 
+            Console.WriteLine("EMAIL");
+            Console.WriteLine(student.Email);
+
             var model = new StudentViewModel
             {
                 Name = student.Name,
                 Email = student.Email,
+                UserName = student.UserName,
                 Major = student.Major,
                 Checkouts = checkouts,
                 Holds = student.Holds
             };
 
             return View(model);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _studentRep.Delete(id);
+            Console.WriteLine("Delete Method Controller");
+            return RedirectToAction("index");
         }
     }
 }
