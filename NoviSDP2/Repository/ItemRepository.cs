@@ -79,5 +79,12 @@ namespace NoviSDP2.Repository
 
         }
 
+        public void Delete(int id)
+        {
+            var item = GetById(id);
+            _context.Remove(item);
+
+            _context.SaveChanges();
+        }
     }
 }

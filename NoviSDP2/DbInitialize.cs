@@ -20,7 +20,8 @@ namespace NoviSDP2
                 var context = scope.ServiceProvider.GetService<DbTestContext>();
 
                 var student1 = new Student { Name = "Hans Anders" };
-                var student2 = new Student { Name = "Jan Peters" };
+                var student2 = new Student { Name = "Jan Peters",
+                                             Email = "onzin@bla.nl"};
 
             var Beschikbaar = new Status { Name = "Beschikbaar" };
             var Uitgeleend = new Status { Name = "Uitgeleend" };
@@ -59,9 +60,8 @@ namespace NoviSDP2
             };
 
 
-
-       //     context.Add(student1);
-         //   context.Add(student2);
+  context.Add(student1);
+           context.Add(student2);
             
             context.Add(item1);
             context.Add(Beschikbaar);

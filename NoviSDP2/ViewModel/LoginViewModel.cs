@@ -9,6 +9,7 @@ namespace NoviSDP2.ViewModel
     public class LoginViewModel
     {
         [Required]
+        [Display(Name = "Gebruikersnaam")]
         public string  UserName { get; set; }
         [Required]
         [DataType(DataType.Password)]

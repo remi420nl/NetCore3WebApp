@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NoviSDP2.Interface;
 using NoviSDP2.Models;
 using NoviSDP2.ViewModel;
@@ -20,6 +21,7 @@ namespace NoviSDP2.Controllers
             _itemRep = itemRep;
         }
 
+        [Authorize(Roles ="Medewerker")]
         public IActionResult Index()
         {
 
@@ -42,7 +44,7 @@ namespace NoviSDP2.Controllers
         [HttpPost]
         public IActionResult Create(Employee employee)
         {
-            _employeeRep.CreateAsync(employee);
+            _employeeRep.Create(employee);
             return RedirectToAction("Index");
         }
 
@@ -53,6 +55,7 @@ namespace NoviSDP2.Controllers
             var model = new EmployeeViewModel
             {
                 Name = employee.Name,
+                UserName = employee.UserName,
                 Email = employee.Email,
                 Department = employee.Department,
                 Items = _itemRep.GetByEmployee(id)
@@ -66,6 +69,13 @@ namespace NoviSDP2.Controllers
         {
             return View();
 
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _employeeRep.Delete(id);
+
+            return RedirectToAction("Index");
         }
     }
 

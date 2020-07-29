@@ -38,9 +38,6 @@ namespace NoviSDP2
         {
 
 
-          
-
-            
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<ICheckoutRepository, CheckoutRepository>();

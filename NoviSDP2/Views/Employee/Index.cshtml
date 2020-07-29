@@ -7,8 +7,8 @@
             <th>Afdeling</th>
             <th>Email</th>
             <th>Totaal in bezit</th>
-            <th>Edit medewerker</th>
-            <th>Delete medewerker</th>
+            
+            <th>Actie</th>
         </tr>
     </thead>
     <tbody>
@@ -19,9 +19,15 @@
             <td>@employee.Department</td>
             <td>@employee.Email</td>
             <td>@employee.Items.Count()</td>
-            <td><a class="btn btn-info" asp-area="" asp-controller="Employee" asp-action="Update" asp-route-id="1111">Aanpassen</a></td>
-            <td><a class="btn btn-danger" asp-area="" asp-controller="Employee" asp-action="Delete" asp-route-id="111" asp-route-employeeId="11111">Verwijder</a></td>
-        </tr>
+         
+            <td>
+                @if (employee.Name == User.Identity.Name)
+                {
+                <a class="btn btn-info" asp-area="" asp-controller="Employee" asp-action="Update" asp-route-id="@employee.Id">Aanpassen</a>
+                <a class="btn btn-danger" asp-area="" asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">Verwijder</a>
+            }
+                </td>
+            </tr>
         }
     </tbody>
 </table>

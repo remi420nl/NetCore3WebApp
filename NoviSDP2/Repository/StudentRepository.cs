@@ -42,5 +42,12 @@ namespace NoviSDP2.Repository
             _context.Add(student);
             _context.SaveChanges();
         }
+
+        public void Delete(int id)
+        {
+            var student = Get(id);
+            _context.Remove(student);
+            _context.SaveChanges();
+        }
     }
 }

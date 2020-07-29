@@ -15,6 +15,7 @@ namespace NoviSDP2.Interface
         IEnumerable<Item> GetByEmployee(int employeeId);
         void SavePhotoUrl(int itemId, string relativePath);
         void HoldItem(Item item, Student student, int days);
+        void Delete(int id);
 
     }
 }

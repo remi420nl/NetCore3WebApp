@@ -24,7 +24,7 @@
 
                 @Html.DropDownListFor(y => y.Item.EmployeeId,
                                              new SelectList(Model.Employees.Select(x => new { Value = x.Id, Text = x.Name }), "Value", "Text"),
-                                             "Medewerker",
+                                             
                                              htmlAttributes: new { @class = "form-control border-input" })
             </div>
         </div>

@@ -7,8 +7,7 @@
             <th>Studie</th>
             <th>Email</th>
             <th>Geleende kunst</th>
-            <th>Aanpassen</th>
-            <th>Verwijder</th>
+            <th>Actie</th>
         </tr>
     </thead>
     <tbody>
@@ -18,10 +17,19 @@
             <td><a asp-controller="Student" asp-action="Detail" asp-route-id="@student.Id">@student.Name</a></td>
             <td>@student.Major</td>
             <td>@student.Email</td>
-            <th>@student.Checkouts.Count()</th>
-            <td><a class="btn btn-info" asp-area="" asp-controller="Student" asp-action="Update" asp-route-id="1111">Aanpassen</a></td>
-            <td><a class="btn btn-danger" asp-area="" asp-controller="Student" asp-action="Delete" asp-route-id="111" asp-route-employeeId="11111">Verwijder</a></td>
+            <td>@student.Checkouts.Count()</td>
+           
+           
+            <td>
+                @if (@student.Name == User.Identity.Name)
+                {
+                    <a class="btn btn-info" asp-area="" asp-controller="Student" asp-action="Update" asp-route-id="@student.Id">Aanpassen</a>
+                    <a class="btn btn-danger" asp-area="" asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id">Verwijder</a>
+                }
+            </td>
+            
         </tr>
         }
     </tbody>
+  
 </table>

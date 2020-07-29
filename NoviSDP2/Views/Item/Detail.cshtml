@@ -5,7 +5,7 @@
             @if (User.Identity.IsAuthenticated)
             {
 
-                if (User.IsInRole("Employee") && Model.Owner == User.Identity.Name)
+                if (User.IsInRole("Medewerker") && Model.Owner == User.Identity.Name)
                 {
                     <p>
                         <a class="btn btn-lg btn-danger" role="button" asp-controller="Item"
