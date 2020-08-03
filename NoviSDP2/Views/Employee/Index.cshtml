@@ -21,10 +21,12 @@
             <td>@employee.Items.Count()</td>
          
             <td>
-                @if (employee.Name == User.Identity.Name)
+                @if (employee.Name != User.Identity.Name)
                 {
-                <a class="btn btn-info" asp-area="" asp-controller="Employee" asp-action="Update" asp-route-id="@employee.Id">Aanpassen</a>
-                <a class="btn btn-danger" asp-area="" asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">Verwijder</a>
+                <div class="btn-group btn-group-sm">
+                    <a class="btn btn-info" asp-area="" asp-controller="Employee" asp-action="Update" asp-route-id="@employee.Id">Aanpassen</a>
+                    <a class="btn btn-danger" asp-area="" asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">Verwijder</a>
+                </div>
             }
                 </td>
             </tr>

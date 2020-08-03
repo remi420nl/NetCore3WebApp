@@ -1,50 +1,54 @@
 ﻿@model ItemViewModel
 
-    <div class="jumbotron">
-        <div class="row">
-            @if (User.Identity.IsAuthenticated)
+    <div class="container">
+
+        @if (User.Identity.IsAuthenticated)
+        {
+
+            if (User.IsInRole("Medewerker") && Model.Owner == User.Identity.Name)
             {
-
-                if (User.IsInRole("Medewerker") && Model.Owner == User.Identity.Name)
-                {
-                    <p>
-                        <a class="btn btn-lg btn-danger" role="button" asp-controller="Item"
-                           asp-action="Delete" asp-route-id="@Model.Id">Verwijder uit gallerij</a>
-                    </p>
-                }
+                <p>
+                    <a class="btn btn-lg btn-danger" role="button" asp-controller="Item"
+                       asp-action="Delete" asp-route-id="@Model.Id">Verwijder uit gallerij</a>
+                </p>
             }
+        }
+    <div class="row">
+        <div class="col-md-5">
+           
+                <img src="@Html.DisplayFor(m => Model.ImageUrl)" width="200" height="150" />
+            
+        </div>
+        <div class="col-md-7">
+            <p class="itemtype">@Model.Type</p>
 
-            <div class="col-md-4">
-                <div>
-                    <img src="@Html.DisplayFor(m => Model.ImageUrl)" width="200" height="150" />
-                </div>
-            </div>
-            <div class="col-md-4">
-                <p>@Model.Name</p>
-                <p>Eigenaar: @Model.Owner</p>
-                <p>@Model.Status</p>
-                <p>@Model.Type</p>
-                <div class="col-md-4">
-                    <p>Beschrijving</p>
-                    <p>@Model.Description</p>
-                    <p>@Model.ImageUrl</p>
-                </div>
+            <h3>@Model.Name</h3>
+            <p>Eigenaar: @Model.Owner</p>
+            <p id="itembeschrijving">@Model.Description</p>
+            <p>Waarde: @Model.Value</p>
+            <p>Status:<span class="status">@Model.Status</span></p>
 
 
-                @if (Model.Status == "Uitgeleend")
-                {
-                    <p>Uitgeleend aan: @Model.Borowwer</p>
-                    <p>Uitgeleend tot: @Model.Until</p>
 
-                    <p>
-                        <a class="btn btn-lg btn-success" role="button" asp-controller="Item"
-                           asp-action="Checkin" asp-route-id="@Model.Id">Inleveren</a>
-                    </p>
-                    <p>
-                        <a class="btn btn-lg btn-warning" role="button" asp-controller="Item"
-                           asp-action="Hold" asp-route-id="@Model.Id">Reserveer</a>
-                    </p>
-                    <p>Reserveringen</p>
+
+
+
+
+            @if (Model.Status == "Uitgeleend")
+            {
+                <p>Uitgeleend aan: @Model.Borowwer</p>
+                <p>Uitgeleend tot: @Model.Until</p>
+
+                <p>
+                    <a class="btn btn-lg btn-success" role="button" asp-controller="Item"
+                       asp-action="Checkin" asp-route-id="@Model.Id">Inleveren</a>
+                </p>
+                <p>
+                    <a class="btn btn-lg btn-warning" role="button" asp-controller="Item"
+                       asp-action="Hold" asp-route-id="@Model.Id">Reserveer</a>
+                </p>
+                <h4><a href="#reserveer" data-toggle="collapse">Reserveringen</a></h4>
+                <div id="reserveer" class="collapse in">
                     @if (Model.Holds.Any())
                     {
                         @foreach (Hold h in Model.Holds)
@@ -55,19 +59,21 @@
                         }
                     }
                     else
-                    {<p>Dit object is momenteel door niemand gereserveerd</p>}
+                    {
+                        <p>Dit object is momenteel door niemand gereserveerd</p>
+                    }
+                </div>
+            }
 
-                }
+            @if (Model.Status == "Beschikbaar")
+            {
+                <p>
+                    <a class="btn btn-lg btn-info" role="button" asp-controller="Item"
+                       asp-action="Checkout" asp-route-id="@Model.Id">Leen</a>
+                </p>
+            }
 
-                @if (Model.Status == "Beschikbaar")
-                {
-                    <p>
-                        <a class="btn btn-lg btn-info" role="button" asp-controller="Item"
-                           asp-action="Checkout" asp-route-id="@Model.Id">Leen</a>
-                    </p>
-                }
-
-            </div>
+        </div>
 
         </div>
     </div>

@@ -1,8 +1,10 @@
 ﻿using NoviSDP2.Models;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace NoviSDP2.ViewModel
@@ -14,7 +16,7 @@ namespace NoviSDP2.ViewModel
         public string Type { get; set; }
         public string Owner { get; set; }
         public int OwnerId { get; set; }
-        public decimal Price { get; set; }
+        public decimal Value { get; set; }
         public string ImageUrl { get; set; }
         public bool Available { get; set; }
         public IEnumerable<Student> Students { get; set; }
@@ -27,6 +29,9 @@ namespace NoviSDP2.ViewModel
         public string Borowwer { get; set; }
         public string Description { get; set; }
         public string Until { get; set; }
+        public bool Donation { get; set; }
+    
+        public decimal Amount{ get; set; }
     }
 
 }

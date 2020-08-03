@@ -13,7 +13,6 @@ namespace NoviSDP2.Interface
         IEnumerable<Item> GetItems(int employeeId);
         void Create(Employee employee);
         void Delete(int id);
-    
-
+        void AddCash(int id, string studentName, int amount);
     }
 }

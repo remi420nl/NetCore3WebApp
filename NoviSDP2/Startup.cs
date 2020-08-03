@@ -42,7 +42,7 @@ namespace NoviSDP2
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<ICheckoutRepository, CheckoutRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-
+            services.AddTransient<CryptoController, CryptoController>();
             // this requires InMemory Nuget Package
             services.AddDbContext<DbTestContext>(options => options.UseInMemoryDatabase("TestString")
             .EnableSensitiveDataLogging()
@@ -107,7 +107,7 @@ namespace NoviSDP2
 
         }
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void  Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, RoleManager<IdentityRole<int>> roleManager)
+    public void  Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<IdentityRole<int>> roleManager)
         {
             if (env.IsDevelopment())
             {

@@ -35,6 +35,87 @@ html {
   }
 }
 
+
+.form-control
+{
+}
+
+.jumbotron {
+    color: white;
+    background-color: lightgrey;
+    margin-top: 25px;
+}
+
+#topmenu {
+    display: flex;
+    flex-direction: row;
+  
+}
+
+.mainscreen {
+   
+}
+
+.col-md-5
+{
+    background: rgba(0,0,0,0.5);
+    margin-top:40px;
+    
+
+}
+
+.status {
+ color:darkslategrey;
+    margin-left:5px;
+}
+
+.navbar
+{
+    margin-bottom: 50px;
+  
+}
+
+.itemtype
+{
+   
+    background:orange;
+    border-radius:5px;
+    color:white;
+    font-weight:bold;
+   padding:10px;
+    font-size:24px;
+   
+ 
+  
+}
+
+#itembeschrijving
+{
+    font-weight:400;
+    margin-bottom:50px;
+}
+
+.col-md-7 h3 {
+    color: #555;
+    font-weight: bold;
+    color:darkblue;
+}
+
+.col-md-7 p {
+   
+  font-weight:600;
+  
+}
+
+.navbar-text {
+    font-size: 24px;
+    margin-right: 30px;
+}
+
+#topmenu > li {
+ margin: 10px;
+}
+
 .border-top {
   border-top: 1px solid #e5e5e5;
 }

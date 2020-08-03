@@ -1,0 +1,47 @@
+﻿@model Donation
+
+<h2>Donatie</h2>
+
+<form asp-controller="Crypto" asp-action="ProcessCheckout" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                <div>
+                    <hr />
+                    <dl class="dl-horizontal">
+
+                        @Html.HiddenFor(model => model.Id)
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Total)
+                        </dt>
+                        <dd>
+                            $@Html.DisplayFor(model => model.Total)
+                            @Html.HiddenFor(model => model.Total)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Name)
+                            @Html.HiddenFor(model => model.Name)
+                        </dd>
+                    </dl>
+                    <hr />
+                    <div style="text-align:center; font-weight:600>Donateur</div>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Student)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Student)
+                            @Html.HiddenFor(model => model.Student)
+                        </dd>
+                      
+                    </dl>
+                </div>
+                <input type="image" src="https://www.coinpayments.net/images/pub/checkout-blue.png" alt="Checkout">
+            </div>
+        </div>
+    </div>
+</form>

@@ -21,9 +21,10 @@ namespace NoviSDP2.Models
         public int BorrowerId { get; set; }
 
         public int HolderId { get; set; }
-        public decimal Price { get; set; }
+        public decimal Value { get; set; }
+  
 
-      
+
         public string ImageUrl { get; set; }
         public string Description { get; set; }
 

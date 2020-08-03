@@ -55,9 +55,7 @@ namespace NoviSDP2.Controllers
         {
             var student = _studentRep.Get(id);
             var checkouts = _checkoutRep.GetByStudent(id);
-
-            Console.WriteLine("EMAIL");
-            Console.WriteLine(student.Email);
+         
 
             var model = new StudentViewModel
             {

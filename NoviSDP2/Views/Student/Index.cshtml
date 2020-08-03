@@ -10,6 +10,7 @@
             <th>Actie</th>
         </tr>
     </thead>
+    
     <tbody>
         @foreach (var student in Model.Students)
         {
@@ -23,10 +24,12 @@
             <td>
                 @if (@student.Name == User.Identity.Name)
                 {
-                    <a class="btn btn-info" asp-area="" asp-controller="Student" asp-action="Update" asp-route-id="@student.Id">Aanpassen</a>
-                    <a class="btn btn-danger" asp-area="" asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id">Verwijder</a>
-                }
-            </td>
+                    <div class="btn-group btn-group-sm">
+                        <a class="btn btn-info" asp-area="" asp-controller="Student" asp-action="Update" asp-route-id="@student.Id">Aanpassen</a>
+                        <a class="btn btn-danger" asp-area="" asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id">Verwijder</a>
+                        </div>
+                        }
+                </td>
             
         </tr>
         }
