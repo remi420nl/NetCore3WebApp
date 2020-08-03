@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Providers.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -204,9 +205,6 @@ namespace NoviSDP2.Controllers
 
 
 
-
-
-
                     if (result.Succeeded)
                     {
 
@@ -218,7 +216,7 @@ namespace NoviSDP2.Controllers
                 };
 
             }
-            Console.WriteLine(result);
+           
 
             ViewBag.Error = result.ToString();
 
@@ -252,6 +250,11 @@ namespace NoviSDP2.Controllers
         }
 
 
+
+        public IActionResult UserProfile(User user)
+        {
+            return View();
+        }
 
     }
 

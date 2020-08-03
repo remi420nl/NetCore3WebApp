@@ -54,6 +54,14 @@ namespace NoviSDP2.Repository
             _context.Remove(employee);
             _context.SaveChanges();
         }
+
+        public void AddCash(int id, string studentName, int amount)
+        {
+            var Employee = Get(id);
+            _context.Update(Employee);
+           // Employee.Cash.Add(studentName, amount);
+            _context.SaveChanges();
+        }
     }
 
 }

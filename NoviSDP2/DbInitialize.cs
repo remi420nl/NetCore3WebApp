@@ -41,7 +41,7 @@ namespace NoviSDP2
             {
                 Name = "Mona Lisa",
                 Employee = employee1,
-                Price = 150,
+                Value = 150,
                 Type = "Schilderij",
                 Status = Beschikbaar,
                 Description = "Dit is een schilderij blabla",
@@ -53,7 +53,7 @@ namespace NoviSDP2
             {
                 Name = "Vrijheidsbeeld",
                 Employee = employee1,
-                Price = 275,
+                Value = 275,
                 Type = "Beeld",
                 Status = Beschikbaar,
                 Description = "Dit is een beeld blabla"

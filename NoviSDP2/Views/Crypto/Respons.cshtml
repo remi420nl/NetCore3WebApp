@@ -1,0 +1,23 @@
+﻿<style>
+    .response-text {
+        text-align: center
+    }
+</style>
+
+@if (!string.IsNullOrEmpty(ViewBag.OrderNumber))
+{
+    <div class="response-text">
+        <hr />
+        <h2>Dankjewel!</h2>
+        <hr />
+        Je order is succesvol aangemaakt <br /> <br />
+        ORDER NUMBER: @ViewBag.OrderNumber
+    </div>
+}
+else
+{
+    <div class="response-text">
+        <hr />
+        <h2>Je order is geannuleerd</h2>
+    </div>
+}

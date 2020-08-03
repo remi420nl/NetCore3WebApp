@@ -21,7 +21,7 @@ namespace NoviSDP2.Controllers
             _itemRep = itemRep;
         }
 
-        [Authorize(Roles ="Medewerker")]
+        //[Authorize(Roles ="Medewerker")]
         public IActionResult Index()
         {
 

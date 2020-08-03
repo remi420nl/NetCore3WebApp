@@ -1,37 +1,73 @@
 ﻿@model ItemViewModel
+@Html.ValidationSummary(false)
 
-    <h2>Kunst</h2>
-    <div class="row orderForm">
+<h2>Kunst</h2>
+<script type='text/javascript'>
+    $(document).ready(function () {
+        $("#inputfield").attr("value", 1);
+        $(function () {
+            $inp = $("#inputfield");
+            $cb = $("#defaultUnchecked");
+            $inp.prop('disabled', true);
 
-        <form asp-controller="Item" asp-action="Checkout" method="post" class="form-horizontal" role="form">
-            <h3 class="col-md-offset-2">Leen een kunst item</h3>
-            @Html.HiddenFor(m => Model.Id)
-            <div class="form-group">
-                <label class="col-md-8 control-label"> Student kiezen</label>
-                <div class="col-md-8">
+            $cb.on('change', function () {
+                if ($cb.is(':checked')) {
+                    $inp.prop('disabled', false);
+                } else {
+                    $inp.prop('disabled', true);
+                }
+            });
 
-                    @Html.DropDownListFor(y => y.Item.BorrowerId,
-                                                 new SelectList(Model.Students.Select(x => new { Value = x.Id, Text = x.Name }), "Value", "Text"),
-                                                 
-                                                 new { @class = "form-control" })
-                  
-                </div>
+        });
+        $('#inputfield').keyup(function () {
+            if ($(this).val() > 500) {
+                alert("Maximaal 500 euro");
+                $(this).val('500');
+            }
+            if ($(this).val() < 1) {
+                alert("Minimaal 1 euro");
+                $(this).val('1');
+            }
+        });
+    });
+</script>
+<div class="row orderForm">
+
+    <form asp-controller="Item" asp-action="Checkout" method="post" class="form-horizontal" role="form">
+        <h3 class="col-md-offset-2">Leen een kunst item</h3>
+        @Html.HiddenFor(m => Model.Id)
+        <div class="form-group">
+            <label class="col-md-8 control-label"> Student kiezen</label>
+            <div class="col-md-8">
+
+                @Html.DropDownListFor(y => y.Item.BorrowerId,
+                                             new SelectList(Model.Students.Select(x => new { Value = x.Id, Text = x.Name }), "Value", "Text"),
+
+                                             new { @class = "form-control" })
+
             </div>
-            <div class="form-group">
-                <label  class="col-md-6 control-label">Dagen</label>
-                <div class="col-md-8">
+        </div>
+        <div class="form-group">
+            <label class="col-md-6 control-label">Dagen</label>
+            <div class="col-md-8">
 
-                    @Html.DropDownListFor(y => y.Days,
-                                                  Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }),
-                                                    new { @class = "form-control" })
-                  
-                </div>
+                @Html.DropDownListFor(y => y.Days,
+                                              Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }),
+                                                new { @class = "form-control" })
+
             </div>
-            <div class="form-group">
-                <div class="btn-group col-md-offset-2 col-md-6">
-                    <input class="btn btn-default" type="submit" value="Terug" asp-controller="Item" asp-action="Index" />
-                    <input class="btn btn-success" type="submit" value="Leen" />
-                </div>
+            <label class="col-md-6 control-label">Donatie bedrag</label>
+            @Html.TextBoxFor(i => i.Amount, new { @type = "number", id = "inputfield" })
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" asp-for="Donation" class="custom-control-input" id="defaultUnchecked">
+                <label class="custom-control-label" for="defaultUnchecked">Donatie</label>
             </div>
-        </form>
-    </div>
+        </div>
+        <div class="form-group">
+            <div class="btn-group col-md-offset-2 col-md-6">
+                <input class="btn btn-default" type="submit" value="Terug" asp-controller="Item" asp-action="Index" />
+                <input class="btn btn-success" type="submit" value="Leen" />
+            </div>
+        </div>
+    </form>
+</div>

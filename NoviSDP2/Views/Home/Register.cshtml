@@ -1,40 +1,69 @@
 ﻿@model RegisterViewModel
 
 
-<div class="row orderForm">
-    <form asp-controller="Home" asp-action="Register" method="post" class="form-horizontal" role="form">
-        <h3 class="col-md-offset-2">Registratie</h3>
+    <div class="container">
+        <div class="row">
 
-        <div class="form-group">
-            <label asp-for="UserName" class="col-md-2 control-label"></label>
-            <div class="col-md-8">
-                <input asp-for="UserName" class="form-control" placeholder="Gebruikersnaam" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-                <input asp-for="Name" class="form-control" placeholder="naam" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-                <input asp-for="Password" class="form-control" placeholder="Wachtwoord" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-                <input asp-for="Email" class="form-control" placeholder="voorbeeld@novi.nl" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-                <input asp-for="Info" class="form-control" placeholder="Studierichting of Afdeling" />
-
-                <div class="col-md-16">
-
-                    @Html.DropDownListFor(y => y.IdentyRole,
-                                                 new SelectList(Model.IdentyRoles.Select(x => new { Value = x.Id, Text = x.Name }), "Value", "Text"),
-
-                                                 new { @class = "form-control" })
-
+            <form asp-controller="Home" asp-action="Register" method="post" class="form-horizontal" role="form">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-2">
+                        </div>
+                        <div class="col-lg-10">
+                            <h3 class="font-weight-light">Novi kunst uitlenen</h3>
+                            <p>Hier komt nog text</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="btn-group col-md-offset-2 col-md-6">
-                <input class="btn btn-default" type="submit" value="Terug" asp-controller="Home" asp-action="Index" />
-                <input class="btn btn-success" type="submit" value="Registreer" />
+                <div class="col-lg-6">
+                </div>
 
-            </div>
+
+        <h3>Registratie</h3>
+
+
+        <label  asp-for="UserName" class="col-md-2 control-label"></label>
+
+        <span " asp-validation-for="UserName" class="text-danger"></span>
+        <input asp-for="UserName" class="form-control" placeholder="Gebruikersnaam" />
+
+
+        <label asp-for="Name" class="col-md-8 control-label"></label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+        <input asp-for="Name" class="form-control" placeholder="naam" />
+
+        <label asp-for="Password" class="col-md-2 control-label"></label>
+        <span asp-validation-for="Password" class="text-danger"></span>
+        <input asp-for="Password" class="form-control" placeholder="Wachtwoord" />
+
+        <label asp-for="Email" class="col-md-2 control-label"></label>
+        <span asp-validation-for="Email" class="text-danger"></span>
+        <input asp-for="Email" class="form-control" placeholder="voorbeeld@novi.nl" />
+
+        <label asp-for="Info" class="col-md-2 control-label"></label>
+        <span asp-validation-for="Info" class="text-danger"></span>
+        <input asp-for="Info" class="form-control" placeholder="Studierichting of Afdeling" />
+
+        <label>Student of Medewerker</label>
+        <div class="col-md-16">
+
+            @Html.DropDownListFor(y => y.IdentyRole,
+                                         new SelectList(Model.IdentyRoles.Select(x => new { Value = x.Id, Text = x.Name }), "Value", "Text"),
+
+                                         new { @class = "form-control" })
+
+
         </div>
+
+
+        <div class="btn-group col-md-offset-2 col-md-">
+            <input class="btn btn-default" type="submit" value="Terug" asp-controller="Home" asp-action="Index" />
+            <input class="btn btn-success" type="submit" value="Registreer" />
+
+        </div>
+
         @ViewBag.Error
-    </form>
-</div>
+        </form>
+
+    </div>
+    </div>

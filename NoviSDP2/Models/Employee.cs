@@ -17,6 +17,7 @@ namespace NoviSDP2.Models
         
         public IEnumerable<Item> Items { get; set; }
         public string Department { get; set; }
+     
       
     }
 }
