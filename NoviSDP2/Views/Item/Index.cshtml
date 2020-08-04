@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<ItemViewModel>
 
-@if (User.Identity.IsAuthenticated)
+@if (!User.Identity.IsAuthenticated)
 {
     <h2>Niet ingelogd</h2>
 }
 
-    @if (!User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated)
     {
 
         if (User.IsInRole("Medewerker"))
         {
-            <li class="nav-item">
-                <a class="btn-outline-primary" asp-area="" asp-controller="Item" asp-action="Create">Nieuw object toevoegen</a>
-            </li>
+            
+                <a class="btn btn-success rounded" asp-area="" asp-controller="Item" asp-action="Create">Nieuw object toevoegen</a>
+            
 
 
             <table class="table table-striped table-hover ">
@@ -48,7 +48,7 @@
         }
 
 
-        if (!User.IsInRole("Student"))
+        if (User.IsInRole("Student"))
         {
             <table class="table table-responsive-md table-hover ">
                 <thead>

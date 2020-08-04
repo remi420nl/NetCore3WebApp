@@ -17,6 +17,6 @@ namespace NoviSDP2.Interface
         IEnumerable<Checkout> GetByStudent(int studentId);
         string GetReturnDate(int id);
         IEnumerable<Hold> CheckHolds(int id);
-
+        IEnumerable<Hold> CheckHoldsForUser(int id);
     }
 }

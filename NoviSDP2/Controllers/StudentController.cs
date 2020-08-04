@@ -64,7 +64,7 @@ namespace NoviSDP2.Controllers
                 UserName = student.UserName,
                 Major = student.Major,
                 Checkouts = checkouts,
-                Holds = student.Holds
+                Holds = _checkoutRep.CheckHoldsForUser(id)
             };
 
             return View(model);

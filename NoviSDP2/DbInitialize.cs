@@ -35,8 +35,15 @@ namespace NoviSDP2
 
             };
 
-            context.Add(employee1);
+            var employee2 = new Employee
+            {
+                Name = "Frits Docent",
+                Department = "Toillet",
+                Email = "frits@novi.nl"
 
+            };
+            context.Add(employee1);
+            context.Add(employee2);
             var item1 = new Item
             {
                 Name = "Mona Lisa",

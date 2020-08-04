@@ -9,8 +9,9 @@ namespace NoviSDP2.Models
     public class Item
     {
         public int Id { get; set; }
-      
+        [Display(Name = "Naam")]
         public string Name { get; set; }
+        [Display(Name = "Soort Kunst")]
         public string Type { get; set; }
         public Status Status { get; set; }
         public Employee Employee { get; set; }
@@ -21,11 +22,13 @@ namespace NoviSDP2.Models
         public int BorrowerId { get; set; }
 
         public int HolderId { get; set; }
+        [Display(Name = "Waarde")]
         public decimal Value { get; set; }
-  
 
 
+        [Display(Name = "Foto")]
         public string ImageUrl { get; set; }
+        [Display(Name = "Beschrijving")]
         public string Description { get; set; }
 
     }

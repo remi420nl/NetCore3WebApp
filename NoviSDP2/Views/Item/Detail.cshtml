@@ -4,7 +4,6 @@
 
         @if (User.Identity.IsAuthenticated)
         {
-
             if (User.IsInRole("Medewerker") && Model.Owner == User.Identity.Name)
             {
                 <p>
@@ -15,16 +14,17 @@
         }
     <div class="row">
         <div class="col-md-5">
-           
-                <img src="@Html.DisplayFor(m => Model.ImageUrl)" width="200" height="150" />
-            
+
+            <img style="max-height:250px;max-height:300px; " src="@Html.DisplayFor(m => Model.ImageUrl)"/>
+
         </div>
         <div class="col-md-7">
             <p class="itemtype">@Model.Type</p>
 
             <h3>@Model.Name</h3>
-            <p>Eigenaar: @Model.Owner</p>
+
             <p id="itembeschrijving">@Model.Description</p>
+            <p>Eigenaar: @Model.Owner</p>
             <p>Waarde: @Model.Value</p>
             <p>Status:<span class="status">@Model.Status</span></p>
 
@@ -49,23 +49,42 @@
                 </p>
                 <h4><a href="#reserveer" data-toggle="collapse">Reserveringen</a></h4>
                 <div id="reserveer" class="collapse in">
-                    @if (Model.Holds.Any())
-                    {
-                        @foreach (Hold h in Model.Holds)
-                        {
-                            <p>Gereserveerd aan: @h.Student.Name</p>
-                            <p>Gekozen dagen : @h.chosenDays</p>
-                            <p>-------------------------------</p>
-                        }
-                    }
-                    else
-                    {
-                        <p>Dit object is momenteel door niemand gereserveerd</p>
-                    }
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Naam</th>
+                                <th>Reserveerdatum</th>
+                                <th>Aantal dagen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (@Model.Holds.Any())
+                            {
+                                var count = 1;
+
+                                @foreach (var hold in @Model.Holds)
+                                {
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>@hold.Student.Name </td>
+                                        <td> @hold.HoldDate.ToString("dd-MM-yy - HH:mm")</td>
+                                        <td>@hold.chosenDays </td>
+                                    </tr>
+                                    count++;
+                                }
+
+                            }
+                            else
+                            {
+                                <tr><td colspan="4">Er zijn momenteel geen reserveringen</td></tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             }
 
-            @if (Model.Status == "Beschikbaar")
+            @if (Model.Status == "Beschikbaar" && User.IsInRole("Student"))
             {
                 <p>
                     <a class="btn btn-lg btn-info" role="button" asp-controller="Item"
