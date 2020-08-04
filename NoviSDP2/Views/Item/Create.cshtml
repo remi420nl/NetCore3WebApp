@@ -2,19 +2,26 @@
 
 <div class="row orderForm">
     <form asp-controller="Item" enctype="multipart/form-data" asp-action="Create" method="post" class="form-horizontal" role="form">
-        <h3 class="col-md-offset-2">Nieuw Kunst Object Aanmaken</h3>
+        <h3 class="col-md-offset-2">Nieuw Kunst Object Toevoegen</h3>
         <div class="form-group">
 
             <div class="col-md-8">
+                <label asp-for="Item.Name"></label>
                 <input asp-for="Item.Name" class="form-control" placeholder="Naam" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+
+                <label asp-for="Item.Type"></label>
                 <input asp-for="Item.Type" class="form-control" placeholder="Type" />
                 <span asp-validation-for="Type" class="text-danger"></span>
+
+                <label asp-for="Item.Description"></label>
                 <input asp-for="Item.Description" class="form-control" placeholder="Beschrijving" />
                 <span asp-validation-for="Description" class="text-danger"></span>
+
+                <label asp-for="Item.Value"></label>
                 <input asp-for="Item.Value" class="form-control" placeholder="Waarde" />
                 <span asp-validation-for="Value" class="text-danger"></span>
-                <label asp-for="Item.ImageUrl" class="form-control">Afbeelding</label>
+                <label asp-for="Item.ImageUrl"></label>
                 <input type="file" name="files" class="form-control" />
             </div>
         </div>
@@ -30,7 +37,7 @@
         </div>
         <div class="form-group">
             <div class="btn-group col-md-offset-2 col-md-6">
-                <input class="btn btn-default" type="submit" value="Terug" asp-controller="Item" asp-action="Index" />
+                <input class="btn btn-info" type="submit" value="Terug" asp-controller="Item" asp-action="Index" />
                 <input class="btn btn-success" type="submit" value="Opslaan" />
             </div>
         </div>

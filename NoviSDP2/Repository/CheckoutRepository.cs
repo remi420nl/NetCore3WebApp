@@ -136,8 +136,7 @@ namespace NoviSDP2.Repository
 
         public bool IsCheckedOut(int itemId)
         {
-            //debug
-            Console.WriteLine("is checked out  " + _context.Checkouts.Where(c => c.Item.Id == itemId).Any());
+       
             return _context.Checkouts.Where(c => c.Item.Id == itemId).Any();
         }
 
@@ -162,6 +161,14 @@ namespace NoviSDP2.Repository
                 
        
 
+        }
+
+        public IEnumerable<Hold> CheckHoldsForUser(int id)
+        {
+            return _context.Holds
+                .Include(h => h.Item)
+                .Include(h => h.Student)
+                .Where(h => h.Student.Id == id);
         }
     }
 }

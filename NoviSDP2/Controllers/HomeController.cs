@@ -127,7 +127,8 @@ namespace NoviSDP2.Controllers
                 }
             }
 
-            return RedirectToAction("index");
+            ViewBag.Login = "Gebruker niet gevonden";
+            return View();
         }
 
         public IActionResult Login()
@@ -216,10 +217,13 @@ namespace NoviSDP2.Controllers
                 };
 
             }
+
+            if (result.ToString() != "Failed : ")
+            {
+                ViewBag.Error = result.ToString();
+            }
+
            
-
-            ViewBag.Error = result.ToString();
-
             model.IdentyRoles = _roleManager.Roles.ToList();
             return View(model);
 
@@ -251,11 +255,8 @@ namespace NoviSDP2.Controllers
 
 
 
-        public IActionResult UserProfile(User user)
-        {
-            return View();
-        }
-
+      
+      
     }
 
 

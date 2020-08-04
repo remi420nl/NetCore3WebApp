@@ -1,58 +1,132 @@
 ﻿@model EmployeeViewModel
 
-<div class="container">
-    <div class="header clearfix detailHeading">
-        <h2 class="text-muted">Medewerker Details</h2>
-    </div>
-    <div class="jumbotron">
+
+<div class="container emp-profile">
+    <form>
         <div class="row">
-            <div class="col-md-4">
-                <div>
-                    <h2>@Model.Name</h2>
-                    <h3>@Model.UserName</h3>
-                    <div class="">
-                        <div>Email Adres: @Model.Email</div>
-                        <div>Afdeling @Model.Department</div>
-                    </div>
+
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        @Model.Name
+                    </h5>
+                    <h6>
+                        Medewerker
+                    </h6>
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Bezit</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-md-4">
-                <h4>Kunst in bezit:</h4>
-                @if (@Model.Items.Any())
-                {
-                    <div>
-                        <ul>
-                            @foreach (var item in @Model.Items)
-                            {
-                                <li>
-                                    @item.Name
-                                    <ul>
-                                        <li>
-                                            Naam: @item.Name
-                                        </li>
-                                        <li>
-                                            Type: @item.Type
-                                        </li>
-                                        <li>
-                                            Prijs: @item.Value
-                                        </li>
-                                        <li>
-                                            Status: @item.Status.Name
-                                        </li>
-                                    </ul>
-                                </li>
-                            }
-                        </ul>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Gebruikersnaam</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.UserName</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Naam</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Name</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email Adres</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Email</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Afdeling</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Department</p>
+                            </div>
+                        </div>
                     </div>
-                }
-                else
-                {
-                    <div>Momenteel geen Kunst in bezit</div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="col-md-4">
+                            <h4>Kunst in bezit:</h4>
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Naam</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (@Model.Items.Any())
+                                    {
 
-                }
-            </div>
 
+                                        @foreach (var item in @Model.Items)
+                                        {
+
+
+
+                                            <tr>
+
+                                                <td>@item.Id</td>
+                                                <td>@item.Name</td>
+                                                <td> @item.Status.Name</td>
+
+                                            </tr>
+
+
+
+                                        }}
+                                    else
+                                    {
+                                        <tr><td colspan="3">Momenteel geen kunst in bezit</td></tr>
+                                    
+                                    }
+
+                                </tbody>
+
+                            
+
+
+
+                                </table>
+
+
+                    </div>
+                    </div>
+                </div>
             
         </div>
-    </div>
+    </form>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,69 +1,149 @@
 ﻿@model StudentViewModel
 
-<div class="container">
-    <div class="header clearfix detailHeading">
-        <h2 class="text-muted">Student Details</h2>
-    </div>
-    <div class="jumbotron">
+<div class="container emp-profile">
+    <form method="post">
         <div class="row">
-            <div class="col-md-4">
-                <div>
-                    <h2>@Model.Name</h2>
-                    <h3>@Model.UserName</h3>
-                    <div class="">
-                        <div>Email Adres: @Model.Email</div>
-                        <div>Studierichting: @Model.Major</div>
+
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        @Model.Name
+                    </h5>
+                    <h6>
+                        Student
+                    </h6>
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Geleend</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Gebruikersnaam</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.UserName</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>naam</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Name</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email Adres</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Email</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Studie</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Major</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="col-md-4">
+                            <h4>Kunst geleend:</h4>
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Naam</th>
+                                        <th>Inleverdatum</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (@Model.Checkouts.Any())
+                                    {
+                                        var count = 1;
+
+                                        @foreach (var checkout in @Model.Checkouts)
+                                        {
+                                            <tr>
+                                                <td>@count</td>
+                                                <td> @checkout.Item.Name</td>
+                                                <td> @checkout.Until.ToString("dd-MM-yy - HH:mm")</td>
+                                            </tr>
+                                            count++;
+
+                                        }}
+                                    else
+                                    {
+                                        <tr><td colspan="3">Momenteel geen items geleend</td></tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-8">
+                            <h4>Kunst gereserveerd</h4>
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Naam</th>
+                                        <th>Reserveerdatum</th>
+                                        <th>Aantal dagen</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (@Model.Holds.Any())
+                                    {
+                                        var count = 1;
+
+                                        @foreach (var hold in @Model.Holds)
+                                        {
+                                            <tr>
+                                                <td>@count</td>
+                                                <td>@hold.Item.Name </td>
+                                                <td> @hold.HoldDate.ToString("dd-MM-yy - HH:mm")</td>
+                                                <td>@hold.chosenDays </td>
+                                            </tr>
+                                            count++;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <tr><td colspan="4">Momenteen geen items gereserveerd</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <h4>Kunst geleend:</h4>
-                @if (@Model.Checkouts.Any())
-                {
-                    <div>
-                        <ul>
-                            @foreach (var checkout in @Model.Checkouts)
-                            {
-                                <li>
-                                   @checkout.Item.Name
-                                    <ul>
-                                        <li>
-                                            Geleend: @checkout.From
-                                        </li>
-                                        <li>
-                                            Tot : @checkout.Until
-                                        </li>
-                                    </ul>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
-                else
-                {
-                    <div>Momenteel geen Items geleend</div>
-
-                }
-            </div>
-
-            <div class="col-md-4">
-                <h4>Kunst gereserveerd</h4>
-                @if (@Model.Holds.Any())
-                {
-                    <div>
-                        <ul>
-                            @foreach (var hold in @Model.Holds)
-                            {
-                                <li>@hold.Item.Name  @hold.HoldDate.ToString("dd-MM-YY - HH:mm")</li>
-                            }
-                        </ul>
-                    </div>
-                }
-                else
-                {
-                    <div>Momenteen geen items gereserveerd</div>
-                }
-            </div>
         </div>
-    </div>
+    </form>
 </div>
+
+
+
+
+
+
+
+
+

@@ -1,27 +1,41 @@
 ﻿@model LoginViewModel
 
+<h2 class="text-center">Inloggen</h2>
+<div class="row">
 
-<div class="row orderForm">
-    <form asp-controller="Home" asp-action="Login" method="post" class="form-horizontal" role="form">
-        <h3 class="col-md-offset-2">Login</h3>
-        <div class="form-group">
-            <label asp-for="UserName" class="col-md-2 control-label"></label>
-            <div class="col-md-8">
+    <div class="col-sm-4">  </div>
+
+
+    <div class="col-sm-4">
+        <form asp-controller="Home" asp-action="Login" method="post" role="form">
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+
                 <input asp-for="UserName" class="form-control" placeholder="Naam" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+
                 <input asp-for="Password" class="form-control" placeholder="Wachtwoord" />
                 <span asp-validation-for="Password" class="text-danger"></span>
-                <label asp-for="RememberMe" class="col-md-2 control-label"></label>
-                <input asp-for="RememberMe" class="form-check-input" />
-
+            </div>
+            <div class="checkbox form-group">
+                <label asp-for="RememberMe"><input type="checkbox" asp-for="RememberMe">  Onthouden</label>
+                
 
             </div>
-        </div>
-        <div class="form-group">
-            <div class="btn-group col-md-offset-2 col-md-6">
-                <input class="btn btn-default" type="submit" value="Terug" asp-controller="Home" asp-action="Index" />
-                <input class="btn btn-success" type="submit" value="Login" />
+            <div class="form-group">
+                <div class="btn-group col-md-offset-2 col-md-6">
+                    <input class="btn btn-info" type="submit" value="Terug" asp-controller="Home" asp-action="Index" />
+                    <input class="btn btn-success" type="submit" value="Login" />
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+        <p>@ViewBag.Login</p>
+    </div>
+    <div class="col-sm-4"> </div>
+
 </div>
+       
+  
