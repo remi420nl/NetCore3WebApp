@@ -1,6 +1,6 @@
 ﻿
-@inject SignInManager<Employee> SignInManager
-@inject UserManager<Employee> UserManager
+@inject SignInManager<Person> SignInManager
+@inject UserManager<Person> UserManager
 
 
 
@@ -16,102 +16,105 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+<body data-spy="affix"  data-target="#mainmenu">
 
-    <div class="navbar navbar-dark bg-dark">
-
-        <a class="navbar-brand"><img width="60" height="60" src="~/images/novilogo.png" /> </a>
-        <span class="navbar-text">Novi Kunst Uitleen</span>
-        <ul class="navbar-nav mr-auto" id="topmenu">
-            <li class="nav-item">
-                <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Item" asp-action="Index">Kunstgallerij</a>
-            </li>
-      
-
-
-            @if (User.Identity.IsAuthenticated)
-            {
-
-                if (User.IsInRole("Medewerker"))
-                {
-                    <li class="nav-item">
-                        <a class="nav-link " asp-area="" asp-controller="Employee" asp-action="Index">Medewerkers</a>
-                    </li>
-                }
-
-                else if (User.IsInRole("Student"))
-                {
+    <div class="navbar navbar-dark bg-dark  fixed-top" >
+        <div class="container-fluid">
+            <a class="navbar-brand"><img width="60" height="60" src="~/images/novilogo.png" /> </a>
+            <span class="navbar-text">Novi Kunst Uitleen</span>
+        <div class="mr-auto" id="mainmenu">
+                <ul class="navbar-nav mr-auto" id="topmenu">
 
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Student" asp-action="Index">Studenten</a>
+                        <a class="nav-link" id="homelink" asp-area="" asp-controller="Home" asp-route-name="@UserManager.GetUserName(User)" asp-action="Index" asp>Home</a>
                     </li>
-                }
-            }
+                    <li class="nav-item">
+                        <a class="nav-link" id="itemlink" asp-area="" asp-controller="Item" asp-action="Index">Kunstgallerij</a>
+                    </li>
 
 
 
-
-
-
-
-
-
-        </ul>
-
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#usermenu">
-            <span class="navbar-toggler-icon"></span>
-
-        </button>
-
-        <div class="collapse navbar-collapse" id="usermenu">
-            <ul class="navbar-nav ml-auto">
-
-                @if (SignInManager.IsSignedIn(User))
-                {
-
-                    if (@User.IsInRole("Medewerker"))
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Employee" asp-action="Detail" asp-route-id="@UserManager.GetUserId(User)">@UserManager.GetUserName(User)</a>
-                        </li>
-                    }
-                    if (@User.IsInRole("Student"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Student" asp-action="Detail" asp-route-id="@UserManager.GetUserId(User)">@UserManager.GetUserName(User)</a>
-                        </li>
+
+                        if (User.IsInRole("Medewerker"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " id="employeelink" asp-area="" asp-controller="Employee" asp-action="Index">Medewerkers</a>
+                            </li>
+                        }
+
+                        else if (User.IsInRole("Student"))
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="studentlink" asp-area="" asp-controller="Student" asp-action="Index">Studenten</a>
+                            </li>
+                        }
                     }
 
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="LogOut">Uitloggen</a>
-
-                    </li>
-                }
-
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Register">Registreer</a>
-                    </li>
-                }
 
 
 
-            </ul>
+
+
+
+
+                </ul>
+            </div>
+               
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#usermenu">
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                <div class="collapse navbar-collapse" id="usermenu">
+                    <ul class="navbar-nav ml-auto">
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+
+                            if (@User.IsInRole("Medewerker"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Employee" asp-action="Detail" asp-route-id="@UserManager.GetUserId(User)">@UserManager.GetUserName(User)</a>
+                                </li>
+                            }
+                            if (@User.IsInRole("Student"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Student" asp-action="Detail" asp-route-id="@UserManager.GetUserId(User)">@UserManager.GetUserName(User)</a>
+                                </li>
+                            }
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="LogOut">Uitloggen</a>
+
+                            </li>
+                        }
+
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Register">Registreer</a>
+                            </li>
+                        }
+
+
+
+                    </ul>
+                </div>
+
+
+
+
+            </div>
         </div>
-
-
-
-
-
-    </div>
 
     <div class="container mainscreen">
         <div class="jumbotron ">

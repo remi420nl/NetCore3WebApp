@@ -1,10 +1,10 @@
 ﻿@model ItemViewModel
 
     <div class="container">
-
+       
         @if (User.Identity.IsAuthenticated)
         {
-            if (User.IsInRole("Medewerker") && Model.Owner == User.Identity.Name)
+            if (User.IsInRole("Medewerker") && Model.Owner.UserName == User.Identity.Name)
             {
                 <p>
                     <a class="btn btn-lg btn-danger" role="button" asp-controller="Item"
@@ -13,23 +13,23 @@
             }
         }
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-4">
 
-            <img style="max-height:250px;max-height:300px; " src="@Html.DisplayFor(m => Model.ImageUrl)"/>
+            <img style="max-width:300px;max-height:350px; " src="@Html.DisplayFor(m => Model.ImageUrl)"/>
 
         </div>
-        <div class="col-md-7">
-            <p class="itemtype">@Model.Type</p>
+        <div class="col-md-4">
+            <p class="itemtype">@Model.Name</p>
 
-            <h3>@Model.Name</h3>
+            <h3>@Model.Type</h3>
 
             <p id="itembeschrijving">@Model.Description</p>
-            <p>Eigenaar: @Model.Owner</p>
-            <p>Waarde: @Model.Value</p>
+            <p>Eigenaar: @Model.Owner.Name</p>
+            <p>Waarde: @string.Format("{0:C2}", Model.Value)</p>
             <p>Status:<span class="status">@Model.Status</span></p>
 
-
-
+            </div>
+        <div class="col-md-4">
 
 
 
@@ -55,7 +55,7 @@
                                 <th>#</th>
                                 <th>Naam</th>
                                 <th>Reserveerdatum</th>
-                                <th>Aantal dagen</th>
+                                <th>Aantal maanden</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,7 +69,7 @@
                                         <td>@count</td>
                                         <td>@hold.Student.Name </td>
                                         <td> @hold.HoldDate.ToString("dd-MM-yy - HH:mm")</td>
-                                        <td>@hold.chosenDays </td>
+                                        <td>@hold.chosenMonths</td>
                                     </tr>
                                     count++;
                                 }

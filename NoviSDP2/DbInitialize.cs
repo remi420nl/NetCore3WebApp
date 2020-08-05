@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NoviSDP2.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,71 +20,103 @@ namespace NoviSDP2
              
                 var context = scope.ServiceProvider.GetService<DbTestContext>();
 
-                var student1 = new Student { Name = "Hans Anders" };
+                var student1 = new Student 
+                { Name = "Hans Anders",
+                Major = "Software Development",
+                Email = "hans@novi.nl"
+                
+                };
                 var student2 = new Student { Name = "Jan Peters",
-                                             Email = "onzin@bla.nl"};
+                    Major = "Cyber Security",
+                                             Email = "jan@novi.nl"};
 
             var Beschikbaar = new Status { Name = "Beschikbaar" };
             var Uitgeleend = new Status { Name = "Uitgeleend" };
-           
 
+     
 
             var employee1 = new Employee
             {
                 Name = "Rob Snel",
-                Password = "abc"
+                Email = "rob@novi.nl",
+                Department = "Management",
 
+            
             };
 
             var employee2 = new Employee
             {
-                Name = "Frits Docent",
-                Department = "Toillet",
-                Email = "frits@novi.nl"
+                Name = "Frits Spits",
+                Email = "frits@novi.nl",
+                Department = "ICT Docenten"
+                
 
             };
-            context.Add(employee1);
-            context.Add(employee2);
+          
             var item1 = new Item
             {
                 Name = "Mona Lisa",
                 Employee = employee1,
-                Value = 150,
+                Value = 1250,
                 Type = "Schilderij",
                 Status = Beschikbaar,
-                Description = "Dit is een schilderij blabla",
-        
+                Description = "Olieverf schilderij gemaakt in 1503, Het is het portret van een glimlachende dame, waarschijnlijk Lisa Gherardini of voluit Lisa di Antonmaria Gherardini di Montagliari. ",
+                ImageUrl = $"{@"\images\item\monalisa.jpg"}"
+
 
             };
+
+     
 
             var item2 = new Item
             {
-                Name = "Vrijheidsbeeld",
+                Name = "Abstracte Kunst",
                 Employee = employee1,
-                Value = 275,
-                Type = "Beeld",
+                Value = 475,
+                Type = "Schilderij",
                 Status = Beschikbaar,
-                Description = "Dit is een beeld blabla"
+                Description = "Dit is een abstract schilderij gemaakt in 1902",
+                ImageUrl = $"{@"\images\item\abstract.jpg"}"
             };
 
+            var item3 = new Item
+            {
+                Name = "Once Upon A Time",
+                Employee = employee2,
+                Value = 120,
+                Type = "Sculptuur",
+                Status = Beschikbaar,
+                Description = "Dit is een sculptuur van een appel",
+                ImageUrl = $"{@"\images\item\sculptuur.jpg"}"
 
-  context.Add(student1);
+
+            };
+
+            var item4 = new Item
+            {
+                Name = "Bronzen Beeld",
+                Employee = employee2,
+                Value = 150,
+                Type = "Beeld",
+                Status = Beschikbaar,
+                Description = "Figuur van een danser met haar armen verheven",
+                ImageUrl = $"{@"\images\item\beeld.jpg"}"
+
+
+            };
+
+            context.Add(employee1);
+            context.Add(employee2);
+            context.Add(student1);
            context.Add(student2);
-            
             context.Add(item1);
+            context.Add(item2);
+            context.Add(item3);
+            context.Add(item4);
             context.Add(Beschikbaar);
             context.Add(Uitgeleend);
-            context.Add(item2);
+           
 
-
-
-
-
-
-
-
-            // context.Employees.Add(docent1);
-            //  context.Employees.Add(docent2);
             context.SaveChanges();
 
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -50,7 +51,7 @@ namespace NoviSDP2
 
 
             //Addidentity registrers the services
-            services.AddIdentity<Employee, IdentityRole<int>>(config => {
+            services.AddIdentity<Person, IdentityRole<int>>(config => {
                 config.Password.RequiredLength = 4;
                 config.Password.RequireDigit = false;
                 config.Password.RequireNonAlphanumeric = false;
@@ -122,7 +123,13 @@ namespace NoviSDP2
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-          
+            // this is to set the currrency to Euro sign
+            var cultureInfo = new CultureInfo("en-US");
+            cultureInfo.NumberFormat.CurrencySymbol = "€";
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
             app.UseRouting();
 
 

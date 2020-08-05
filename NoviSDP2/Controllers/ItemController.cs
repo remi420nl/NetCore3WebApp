@@ -49,7 +49,7 @@ namespace NoviSDP2.Controllers
             {
                 Id = i.Id,
                 Name = i.Name,
-                Owner = i.Employee.Name,
+                Owner = i.Employee,
                 OwnerId = i.Employee.Id,
                 Type = i.Type,
                 Value = i.Value,
@@ -73,7 +73,7 @@ namespace NoviSDP2.Controllers
             {
                 Id = item.Id,
                 Name = item.Name,
-                Owner = item.Employee.Name,
+                Owner = item.Employee,
                 Type = item.Type,
                 Value = item.Value,
                 Available = _checkoutRep.IsCheckedOut(item.Id) ? false : true,
@@ -165,7 +165,7 @@ namespace NoviSDP2.Controllers
             {
                 Id = item.Id,
                 Name = item.Name,
-                Owner = item.Employee.Name,
+                Owner = item.Employee,
                 Type = item.Type,
                 Value = item.Value,
                 ImageUrl = item.ImageUrl,
@@ -184,12 +184,12 @@ namespace NoviSDP2.Controllers
             {
                 var student = _studentRep.Get(viewModel.Item.BorrowerId);
                 var item = _itemRep.GetById(viewModel.Id);
-                var days = viewModel.Days;
+                var months = viewModel.Months;
                 var owner = item.Employee.Name;
 
                 
 
-                _checkoutRep.CheckoutItem(item, student, days);
+                _checkoutRep.CheckoutItem(item, student, months);
                
 
                 if(viewModel.Donation)
@@ -231,7 +231,7 @@ namespace NoviSDP2.Controllers
             {
                 Id = item.Id,
                 Name = item.Name,
-                Owner = item.Employee.Name,
+                Owner = item.Employee,
                 Type = item.Type,
                 Value = item.Value,
                 ImageUrl = item.ImageUrl,
@@ -251,9 +251,9 @@ namespace NoviSDP2.Controllers
             {
                 var student = _studentRep.Get(viewModel.Item.HolderId);
                 var item = _itemRep.GetById(viewModel.Id);
-                var days = viewModel.Days;
+                var months = viewModel.Months;
 
-                _itemRep.HoldItem(item, student, days);
+                _itemRep.HoldItem(item, student, months);
             }
             return RedirectToAction("Index");
         }
@@ -267,26 +267,6 @@ namespace NoviSDP2.Controllers
             return RedirectToAction("Index");
         }
 
-        public void PayPalHandler(IConfiguration config)
-        {
-
-
-
-        }
-
-        public Dictionary<string, string> PayPalHandler()
-        {
-
-            return new Dictionary<string, string>()
-    {
-        { "clientId" , "AcdUJfvxuj-9cX8aklbAsqHqIabytpr7TgSn4gFC99KM16gaSfgHg0tKxVoRX70YlcBZBevNoftm8B9y" },
-        { "clientSecret","EMrpHd_ryb2MFIIlnZfM0nEp8ol66IcFYzY5cGnQF342cfh6u9ZGPsgkGyaWR1S5avI9pAh4rBS6eg01"},
-        { "mode", "sandbox" },
-        { "business", "novi" },
-        { "merchantId", "4542354255452" },
-    };
-        }
-    
 
 
     }

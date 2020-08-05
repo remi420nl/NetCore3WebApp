@@ -1,6 +1,21 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+* {
+    font-family: Verdana;
+}
+.homepage {
+    margin-top:25px;
+    border:solid;
+    border-color:dimgrey;
+    border-radius: 5px;
+    vertical-align:central;
+    background-color:slategrey;
+    padding-top:20px;
+    font-weight:300
+}
+
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -77,7 +92,11 @@ html {
 .navbar
 {
     margin-bottom: 50px;
-  
+}
+
+.navbar-brand img
+{
+    height: 3rem;
 }
 
 .itemtype
@@ -99,13 +118,12 @@ html {
 { color: black;
     font-weight:400;
     margin-bottom:50px;
-    max-height:80px;
-    height:100%;
-    width:160px;
+  
     border:ridge;
     border-color:white;
     border-radius:10px;
     padding:5px;
+    background-color: aliceblue
 }
 
 .col-md-7 h3 {

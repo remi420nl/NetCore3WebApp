@@ -11,7 +11,7 @@ namespace NoviSDP2.Models
 
         public int Id { get; set; }
         public DateTime HoldDate { get; set; }
-        public int chosenDays { get; set; }
+        public int chosenMonths { get; set; }
         public Student Student { get; set; }
         public Item Item { get; set; }
 

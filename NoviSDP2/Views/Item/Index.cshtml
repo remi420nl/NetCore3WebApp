@@ -1,4 +1,10 @@
 ﻿@model IEnumerable<ItemViewModel>
+    <script>
+    $(document).ready(function () {
+        $(".active").removeClass("active");
+        $("#itemlink").addClass("active");
+    });
+    </script>
 
 @if (!User.Identity.IsAuthenticated)
 {
@@ -10,9 +16,9 @@
 
         if (User.IsInRole("Medewerker"))
         {
-            
+
                 <a class="btn btn-success rounded" asp-area="" asp-controller="Item" asp-action="Create">Nieuw object toevoegen</a>
-            
+
 
 
             <table class="table table-striped table-hover ">
@@ -31,13 +37,13 @@
                     {
 
                         <tr>
-                            <td><a asp-controller="Employee" asp-action="Detail" asp-route-id="@item.OwnerId">@item.Owner</a></td>
+                            <td><a asp-controller="Employee" asp-action="Detail" asp-route-id="@item.OwnerId">@item.Owner.Name</a></td>
 
                             <td> <a asp-controller="Item" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></td>
 
                             <td>@item.Type</td>
                             <td>@item.Status</td>
-                            <td>@item.Value</td>
+                            <td>@string.Format("{0:C2}",@item.Value)</td>
 
 
                         </tr>
@@ -66,13 +72,13 @@
                     {
 
                         <tr>
-                            <td><a asp-controller="Employee" asp-action="Detail" asp-route-id="@item.OwnerId">@item.Owner</a></td>
+                            <td><a asp-controller="Employee" asp-action="Detail" asp-route-id="@item.OwnerId">@item.Owner.Name</a></td>
 
                             <td> <a asp-controller="Item" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></td>
 
                             <td>@item.Type</td>
                             <td>@item.Status</td>
-                            <td>@item.Value</td>
+                            <td>@string.Format("{0:C2}", @item.Value)</td>
 
                             @if (item.Status == "Beschikbaar")
                             {

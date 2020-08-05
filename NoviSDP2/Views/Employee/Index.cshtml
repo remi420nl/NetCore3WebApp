@@ -1,35 +1,40 @@
 ﻿@model EmployeeViewModel
+    <script>
+        $(document).ready(function () {
+            $(".active").removeClass("active");
+            $("#employeelink").addClass("active");
+        });
+    </script>
+    <table class="table table-striped table-hover ">
+        <thead>
+            <tr>
+                <th>Naam</th>
+                <th>Afdeling</th>
+                <th>Email</th>
+                <th>Totaal in bezit</th>
 
-<table class="table table-striped table-hover ">
-    <thead>
-        <tr>
-            <th>Naam</th>
-            <th>Afdeling</th>
-            <th>Email</th>
-            <th>Totaal in bezit</th>
-            
-            <th>Actie</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var employee in Model.Employees)
-        {
-        <tr>
-            <td><a asp-controller="Employee" asp-action="Detail" asp-route-id="@employee.Id">@employee.Name</a></td>
-            <td>@employee.Department</td>
-            <td>@employee.Email</td>
-            <td>@employee.Items.Count()</td>
-         
-            <td>
-                @if (employee.Name == User.Identity.Name)
-                {
-                <div class="btn-group btn-group-sm">
-                    <a class="btn btn-info" asp-area="" asp-controller="Employee" asp-action="Update" asp-route-id="@employee.Id">Aanpassen</a>
-                    <a class="btn btn-danger" asp-area="" asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">Verwijder</a>
-                </div>
-            }
-                </td>
+                <th>Actie</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model.Employees)
+            {
+                <tr>
+                    <td><a asp-controller="Employee" asp-action="Detail" asp-route-id="@employee.Id">@employee.Name</a></td>
+                    <td>@employee.Department</td>
+                    <td>@employee.Email</td>
+                    <td>@employee.Items.Count()</td>
+
+                    <td>
+                        @if (employee.UserName == User.Identity.Name)
+                        {
+                            <div class="btn-group btn-group-sm">
+                                <a class="btn btn-info" asp-area="" asp-controller="Employee" asp-action="Update" asp-route-id="@employee.Id">Aanpassen</a>
+                                <a class="btn btn-danger" asp-area="" asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">Verwijder</a>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

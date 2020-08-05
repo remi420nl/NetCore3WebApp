@@ -43,13 +43,13 @@ namespace NoviSDP2.Repository
             {
                 var oldest = holds.OrderBy(h => h.HoldDate).FirstOrDefault();
                 var student = oldest.Student;
-                var days = oldest.chosenDays;
+                var months = oldest.chosenMonths;
 
                
 
                 _context.Remove(oldest);
 
-                CheckoutItem(item ,student, days);
+                CheckoutItem(item ,student, months);
 
               
                 return;
@@ -88,11 +88,11 @@ namespace NoviSDP2.Repository
                 .Where(h => h.Item.Id == itemId);
         }
 
-        public void CheckoutItem(Item item,Student student, int days)
+        public void CheckoutItem(Item item,Student student, int months)
         {
-            // save the current time and add the chosen day amount
+            // save the current time and add the chosen month amount
             var time = DateTime.Now;
-            var returnTime = time.AddDays(days);
+            var returnTime = time.AddMonths(months);
 
 
             var checkout = new Checkout

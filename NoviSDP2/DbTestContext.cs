@@ -15,7 +15,7 @@ namespace NoviSDP2
         {
             
         }
-
+        public DbSet<Person> Persons { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Item> Items { get; set; }
