@@ -11,7 +11,7 @@ namespace NoviSDP2.Interface
         IEnumerable<Checkout> GetAll();
         Checkout Get(int id);
         void Add(Checkout checkout);
-        void CheckoutItem(Item item,Student student, int days);
+        void CheckoutItem(Item item,Student student, int months);
         void CheckInItem(int id);
         bool IsCheckedOut(int id);
         IEnumerable<Checkout> GetByStudent(int studentId);

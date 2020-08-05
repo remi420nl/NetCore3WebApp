@@ -19,10 +19,10 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-6 control-label">Dagen</label>
+            <label class="col-md-6 control-label">Maanden</label>
             <div class="col-md-8">
 
-                @Html.DropDownListFor(y => y.Days,
+                @Html.DropDownListFor(y => y.Months,
                                               Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }),
                                                 new { @class = "form-control" })
                

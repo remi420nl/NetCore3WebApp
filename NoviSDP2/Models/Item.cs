@@ -23,6 +23,7 @@ namespace NoviSDP2.Models
 
         public int HolderId { get; set; }
         [Display(Name = "Waarde")]
+        [DisplayFormat(DataFormatString = "{0:n} €")]
         public decimal Value { get; set; }
 
 

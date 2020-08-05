@@ -14,8 +14,9 @@ namespace NoviSDP2.ViewModel
         public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-        public string Owner { get; set; }
+        public Employee Owner { get; set; }
         public int OwnerId { get; set; }
+        [DisplayFormat(DataFormatString = "{0:n} €")]
         public decimal Value { get; set; }
         public string ImageUrl { get; set; }
         public bool Available { get; set; }
@@ -24,7 +25,7 @@ namespace NoviSDP2.ViewModel
         public IEnumerable<Hold> Holds { get; set; }
 
         public Item Item { get; set; }
-        public int Days { get; set; }
+        public int Months { get; set; }
         public string Status { get; set; }
         public string Borowwer { get; set; }
         public string Description { get; set; }
