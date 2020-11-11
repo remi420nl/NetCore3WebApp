@@ -108,7 +108,7 @@ namespace NoviSDP2
 
         }
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void  Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<IdentityRole<int>> roleManager)
+    public void  Configure(IApplicationBuilder app, DbTestContext context,IWebHostEnvironment env, RoleManager<IdentityRole<int>> roleManager, UserManager<Person> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -120,6 +120,7 @@ namespace NoviSDP2
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -150,8 +151,10 @@ namespace NoviSDP2
 
             //Here is initialize the DB with some mock data
             DbInitialize.Init(app);
-           
             RolesData.SeedRoles(roleManager).Wait();
+            DbInitialize.Initialize(context,userManager, roleManager).Wait();
+          
+          
         }
 
     }

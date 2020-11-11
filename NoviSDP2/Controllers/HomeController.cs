@@ -94,7 +94,6 @@ namespace NoviSDP2.Controllers
 
             var user = await _userManager.FindByNameAsync(model.UserName);
 
-     
 
      
             if (user != null)
@@ -158,7 +157,6 @@ namespace NoviSDP2.Controllers
 
                 if (model.IdentyRole == 2)
                 {
-                    Console.WriteLine("Student GEKOZEN");
                     var user = new Student
                     {
                         //first one is for the Identy User superclass
@@ -200,7 +198,7 @@ namespace NoviSDP2.Controllers
                         Email = model.Email,
                         Department = model.Info,
                         SecurityStamp = Guid.NewGuid().ToString()
-
+                        
                     };
 
 

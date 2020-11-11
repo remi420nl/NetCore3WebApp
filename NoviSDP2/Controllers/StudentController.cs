@@ -73,7 +73,7 @@ namespace NoviSDP2.Controllers
         public IActionResult Delete(int id)
         {
             _studentRep.Delete(id);
-            Console.WriteLine("Delete Method Controller");
+        
             return RedirectToAction("index");
         }
     }
