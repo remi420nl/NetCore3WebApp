@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NoviSDP2.Models;
 using System;
@@ -11,11 +13,14 @@ namespace NoviSDP2
 {
     public class DbInitialize
     {
+
+  
+
         public static void Init(IApplicationBuilder app)
         {
 
             //Maybe try to change this to a ctor and dependency injection
-
+           
             var scope = app.ApplicationServices.CreateScope();
              
                 var context = scope.ServiceProvider.GetService<DbTestContext>();
@@ -33,7 +38,9 @@ namespace NoviSDP2
             var Beschikbaar = new Status { Name = "Beschikbaar" };
             var Uitgeleend = new Status { Name = "Uitgeleend" };
 
-     
+
+
+            
 
             var employee1 = new Employee
             {
@@ -105,22 +112,66 @@ namespace NoviSDP2
 
             };
 
+
+          
+
+           
+      
+
+
+
+
             context.Add(employee1);
             context.Add(employee2);
             context.Add(student1);
            context.Add(student2);
+          
             context.Add(item1);
             context.Add(item2);
             context.Add(item3);
             context.Add(item4);
             context.Add(Beschikbaar);
             context.Add(Uitgeleend);
-           
+          
 
             context.SaveChanges();
 
 
+         
             
+
+        
+
+   
+           
         }
+
+        public static async Task Initialize(DbTestContext context, UserManager<Person> userManager, RoleManager<IdentityRole<int>> roleManager) 
+        {
+          
+            var user = new Student
+            {
+                UserName = "student",
+                Major = "Software Development",
+                Email = "student@novi.nl",
+                Password = "student"
+
+            };
+
+            var result = await userManager.CreateAsync(user, "student");
+
+
+
+            if (result.Succeeded)
+            {
+
+
+                await userManager.AddToRoleAsync(user, "Student");
+
+            }
+            Console.WriteLine("INITILIZING STUDENT WITH ROLE");
+
+        }
+
     }
 }
