@@ -24,7 +24,6 @@ namespace NoviSDP2.Controllers
         [Authorize(Roles = "Student")]
         public IActionResult Index()
         {
-
             var students = _studentRep.GetAll();
 
             var model = new StudentViewModel()
@@ -38,7 +37,6 @@ namespace NoviSDP2.Controllers
         public IActionResult Create()
         {
             return View();
-
         }
 
         [HttpPost]
@@ -46,16 +44,13 @@ namespace NoviSDP2.Controllers
         {
             _studentRep.Create(student);
 
-
             return RedirectToAction("Index");
-
         }
 
         public IActionResult Detail(int id)
         {
             var student = _studentRep.Get(id);
             var checkouts = _checkoutRep.GetByStudent(id);
-         
 
             var model = new StudentViewModel
             {
@@ -66,7 +61,6 @@ namespace NoviSDP2.Controllers
                 Checkouts = checkouts,
                 Holds = _checkoutRep.CheckHoldsForUser(id)
             };
-
             return View(model);
         }
 

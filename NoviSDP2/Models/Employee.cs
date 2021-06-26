@@ -8,8 +8,6 @@ namespace NoviSDP2.Models
 {
     public class Employee : Person
     {
-        
-
         [Required, MinLength(2), MaxLength(40)]
        
         //TODO:

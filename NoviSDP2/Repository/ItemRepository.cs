@@ -11,7 +11,6 @@ namespace NoviSDP2.Repository
     public class ItemRepository : IItemRepository
     {
         private readonly DbTestContext _context;
-
         public ItemRepository(DbTestContext context)
         {
             _context = context;
@@ -20,30 +19,25 @@ namespace NoviSDP2.Repository
         {
             _context.Add(item);
             _context.SaveChanges();
-
         }
 
         public IEnumerable<Item> GetAll()
         {
-
             return _context.Items
                     .Include(i => i.Employee)
                     .Include(i => i.Status);
-
         }
 
         public IEnumerable<Item> GetByEmployee(int employeeId)
         {
             return GetAll()
                    .Where(i => i.Employee.Id == employeeId);
-
         }
 
         public Item GetById(int id)
         {
             return GetAll()
                 .FirstOrDefault(i => i.Id == id);
-
         }
 
         public string GetType(int id)
@@ -55,10 +49,8 @@ namespace NoviSDP2.Repository
 
         public void SavePhotoUrl(int itemId, string relativePath)
         {
-
             GetById(itemId).ImageUrl = "\\" + relativePath ;
           
-       
             _context.SaveChanges();
         }
 
@@ -70,13 +62,11 @@ namespace NoviSDP2.Repository
                 Student = student,
                 chosenMonths = months,
                 HoldDate = DateTime.Now
-
             };
 
             _context.Add(hold);
 
             _context.SaveChanges();
-
         }
 
         public void Delete(int id)

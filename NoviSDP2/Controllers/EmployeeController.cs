@@ -21,24 +21,21 @@ namespace NoviSDP2.Controllers
             _itemRep = itemRep;
         }
 
-        [Authorize(Roles ="Medewerker")]
+        [Authorize(Roles = "Medewerker")]
         public IActionResult Index()
         {
-
             var employees = _employeeRep.GetAll();
 
             var model = new EmployeeViewModel()
             {
                 Employees = employees
             };
-
             return View(model);
         }
 
         public IActionResult Create()
         {
             return View();
-
         }
 
         [HttpPost]
@@ -50,7 +47,6 @@ namespace NoviSDP2.Controllers
 
         public IActionResult Detail(int id)
         {
-            
             var employee = _employeeRep.Get(id);
             var model = new EmployeeViewModel
             {
@@ -59,16 +55,13 @@ namespace NoviSDP2.Controllers
                 Email = employee.Email,
                 Department = employee.Department,
                 Items = _itemRep.GetByEmployee(id)
-             
             };
-
             return View(model);
         }
 
         public IActionResult Update(int id)
         {
             return View();
-
         }
 
         public IActionResult Delete(int id)
@@ -78,5 +71,4 @@ namespace NoviSDP2.Controllers
             return RedirectToAction("Index");
         }
     }
-
 }

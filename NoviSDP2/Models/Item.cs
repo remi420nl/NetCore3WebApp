@@ -26,11 +26,9 @@ namespace NoviSDP2.Models
         [DisplayFormat(DataFormatString = "{0:n} €")]
         public decimal Value { get; set; }
 
-
         [Display(Name = "Foto")]
         public string ImageUrl { get; set; }
         [Display(Name = "Beschrijving")]
         public string Description { get; set; }
-
     }
 }

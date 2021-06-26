@@ -7,12 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
-
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http;
 using System.Web.Http.ModelBinding;
@@ -41,10 +39,8 @@ namespace NoviSDP2.Controllers
             _employeeRep = employeeRep;
         }
 
-
         public IActionResult Index() 
         {
-
             var model = _itemRep.GetAll().Select(i => new ItemViewModel
             {
                 Id = i.Id,
@@ -55,14 +51,7 @@ namespace NoviSDP2.Controllers
                 Value = i.Value,
                 Available = _checkoutRep.IsCheckedOut(i.Id) ? false : true,
                 Status = i.Status.Name
-
-
             });
-
-           
-            
-       
-
             return View(model);
         }
 
@@ -83,12 +72,7 @@ namespace NoviSDP2.Controllers
                 Borowwer = item.Borrower,
                 Until = _checkoutRep.GetReturnDate(id),
                 Holds = _checkoutRep.CheckHolds(id)
-
             };
-
-
-
-
             return View(model);
         }
 
@@ -101,38 +85,29 @@ namespace NoviSDP2.Controllers
             };
 
             return View(model);
-
         }
 
         [HttpPost]
         public IActionResult Create(Models.Item item)
         {
-
             if (!ModelState.IsValid)
             {
                 return View(item);
             }
-
-           
 
             //Add new Available Status
             item.Status = new Status { Name = "Beschikbaar" };
             _itemRep.Create(item);
 
             UploadPicture(item.Id);
-          
-                
+              
             return RedirectToAction("Index");
-
         }
 
         private void UploadPicture(int itemId)
         {
-
-        
             string wwwroot = _hosting.WebRootPath;
             var files = HttpContext.Request.Form.Files;
-
 
             if (files.Count() != 0)
             {
@@ -148,9 +123,7 @@ namespace NoviSDP2.Controllers
                     files[0].CopyTo(fileStream);
                 }
                 _itemRep.SavePhotoUrl(itemId, relativePath);
-
             }
-
         }
 
         [HttpGet]
@@ -160,7 +133,6 @@ namespace NoviSDP2.Controllers
             var item = _itemRep.GetById(id);
             var students = _studentRep.GetAll();
             
-
             var model = new ItemViewModel
             {
                 Id = item.Id,
@@ -179,7 +151,6 @@ namespace NoviSDP2.Controllers
         [HttpPost]
         public IActionResult Checkout(ItemViewModel viewModel)
         {
-        
             if (ModelState.IsValid)
             {
                 var student = _studentRep.Get(viewModel.Item.BorrowerId);
@@ -187,45 +158,29 @@ namespace NoviSDP2.Controllers
                 var months = viewModel.Months;
                 var owner = item.Employee.Name;
 
-                
-
                 _checkoutRep.CheckoutItem(item, student, months);
                
-
                 if(viewModel.Donation)
                 {
-                   return  RedirectToAction ("ProcessCheckout", "Crypto", new { employee = owner, amount = viewModel.Amount, student = student.Name});
-                    
+                   return  RedirectToAction ("ProcessCheckout", "Crypto", new { employee = owner, amount = viewModel.Amount, student = student.Name});    
                 }
                 return RedirectToAction("Index");
-
             }
-
-      
             viewModel.Students = _studentRep.GetAll();
-            return View(viewModel);
-           
+            return View(viewModel);     
         }
-
-
-
 
         public IActionResult Checkin(int id)
         {
-
             _checkoutRep.CheckInItem(id);
-
-         
 
             return RedirectToAction("Index");
         }
-
 
         public IActionResult Hold(int id)
         {
             var item = _itemRep.GetById(id);
             var students = _studentRep.GetAll();
-
 
             var model = new ItemViewModel
             {
@@ -240,9 +195,7 @@ namespace NoviSDP2.Controllers
             };
 
             return View(model);
-
         }
-
 
         [HttpPost]
         public IActionResult Hold(ItemViewModel viewModel)
@@ -257,8 +210,6 @@ namespace NoviSDP2.Controllers
             }
             return RedirectToAction("Index");
         }
-
-
     
         public IActionResult Delete(int id)
         {
@@ -266,8 +217,5 @@ namespace NoviSDP2.Controllers
 
             return RedirectToAction("Index");
         }
-
-
-
     }
 }

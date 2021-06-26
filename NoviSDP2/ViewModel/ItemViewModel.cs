@@ -31,7 +31,6 @@ namespace NoviSDP2.ViewModel
         public string Description { get; set; }
         public string Until { get; set; }
         public bool Donation { get; set; }
-    
         public decimal Amount{ get; set; }
     }
 

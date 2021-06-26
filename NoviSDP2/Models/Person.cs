@@ -23,9 +23,5 @@ namespace NoviSDP2.Models
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-     
-
-
     }
 }

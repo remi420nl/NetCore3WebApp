@@ -30,10 +30,6 @@
 
             </div>
         <div class="col-md-4">
-
-
-
-
             @if (Model.Status == "Uitgeleend")
             {
                 <p>Uitgeleend aan: @Model.Borowwer</p>
@@ -83,7 +79,6 @@
                     </table>
                 </div>
             }
-
             @if (Model.Status == "Beschikbaar" && User.IsInRole("Student"))
             {
                 <p>

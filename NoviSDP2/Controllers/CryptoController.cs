@@ -32,17 +32,15 @@ namespace NoviSDP2.Controllers
             return View();
         }
 
-
-        
         public IActionResult ProcessCheckout(string employee, decimal amount, string student)
         {
             var model = new Donation
             {
                 Id = Guid.NewGuid().ToString(),
-               Name = employee,
-               Total = amount,
-               Student = student
-         
+                Name = employee,
+                Total = amount,
+                Student = student
+
             };
             Console.WriteLine("Cryptocontroller processing: " + employee);
             return View(model);
@@ -73,8 +71,8 @@ namespace NoviSDP2.Controllers
             return View("Respons");
         }
 
-        [HttpPost]  
-public IActionResult IPNHandler()
+        [HttpPost]
+        public IActionResult IPNHandler()
         {
             byte[] parameters;
             using (var stream = new MemoryStream())
@@ -178,7 +176,6 @@ public IActionResult IPNHandler()
                 Cancelled = 50,
             }
 
-
             public static PaymentStatus GetPaymentStatus(string paymentStatus, string pendingReason)
             {
                 var result = PaymentStatus.Pending;
@@ -235,12 +232,9 @@ public IActionResult IPNHandler()
 
                 //billing info  
                 ["first_name"] = model.Student,
-               
 
             };
             return queryParameters;
         }
-
-
     }
 }

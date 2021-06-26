@@ -13,34 +13,28 @@ namespace NoviSDP2
 {
     public class DbInitialize
     {
-
-  
-
         public static void Init(IApplicationBuilder app)
         {
-
-            //Maybe try to change this to a ctor and dependency injection
-           
             var scope = app.ApplicationServices.CreateScope();
-             
-                var context = scope.ServiceProvider.GetService<DbTestContext>();
 
-                var student1 = new Student 
-                { Name = "Hans Anders",
+            var context = scope.ServiceProvider.GetService<DbTestContext>();
+
+            var student1 = new Student
+            {
+                Name = "Hans Anders",
                 Major = "Software Development",
                 Email = "hans@novi.nl"
-                
-                };
-                var student2 = new Student { Name = "Jan Peters",
-                    Major = "Cyber Security",
-                                             Email = "jan@novi.nl"};
+
+            };
+            var student2 = new Student
+            {
+                Name = "Jan Jansen",
+                Major = "Cyber Security",
+                Email = "jan@novi.nl"
+            };
 
             var Beschikbaar = new Status { Name = "Beschikbaar" };
             var Uitgeleend = new Status { Name = "Uitgeleend" };
-
-
-
-            
 
             var employee1 = new Employee
             {
@@ -48,7 +42,7 @@ namespace NoviSDP2
                 Email = "rob@novi.nl",
                 Department = "Management",
 
-            
+
             };
 
             var employee2 = new Employee
@@ -56,10 +50,10 @@ namespace NoviSDP2
                 Name = "Frits Spits",
                 Email = "frits@novi.nl",
                 Department = "ICT Docenten"
-                
+
 
             };
-          
+
             var item1 = new Item
             {
                 Name = "Mona Lisa",
@@ -69,11 +63,7 @@ namespace NoviSDP2
                 Status = Beschikbaar,
                 Description = "Olieverf schilderij gemaakt in 1503, Het is het portret van een glimlachende dame, waarschijnlijk Lisa Gherardini of voluit Lisa di Antonmaria Gherardini di Montagliari. ",
                 ImageUrl = $"{@"\images\item\monalisa.jpg"}"
-
-
             };
-
-     
 
             var item2 = new Item
             {
@@ -95,8 +85,6 @@ namespace NoviSDP2
                 Status = Beschikbaar,
                 Description = "Dit is een sculptuur van een appel",
                 ImageUrl = $"{@"\images\item\sculptuur.jpg"}"
-
-
             };
 
             var item4 = new Item
@@ -112,46 +100,28 @@ namespace NoviSDP2
 
             };
 
-
-          
-
-           
-      
-
-
-
-
             context.Add(employee1);
             context.Add(employee2);
             context.Add(student1);
-           context.Add(student2);
-          
+            context.Add(student2);
+
             context.Add(item1);
             context.Add(item2);
             context.Add(item3);
             context.Add(item4);
             context.Add(Beschikbaar);
             context.Add(Uitgeleend);
-          
 
             context.SaveChanges();
 
-
-         
-            
-
-        
-
-   
-           
         }
 
-        public static async Task Initialize(DbTestContext context, UserManager<Person> userManager, RoleManager<IdentityRole<int>> roleManager) 
+        public static async Task Initialize(DbTestContext context, UserManager<Person> userManager, RoleManager<IdentityRole<int>> roleManager)
         {
-          
             var user = new Student
             {
                 UserName = "student",
+                Name = "Test Student",
                 Major = "Software Development",
                 Email = "student@novi.nl",
                 Password = "student"
@@ -160,18 +130,13 @@ namespace NoviSDP2
 
             var result = await userManager.CreateAsync(user, "student");
 
-
-
             if (result.Succeeded)
             {
 
-
                 await userManager.AddToRoleAsync(user, "Student");
-
             }
-            Console.WriteLine("INITILIZING STUDENT WITH ROLE");
+            Console.WriteLine("INITILIZING STUDENT WITH ROLE", user.Id);
 
         }
-
     }
 }

@@ -12,7 +12,6 @@ namespace NoviSDP2.Repository
     {
 
         private readonly DbTestContext _context;
-
         public EmployeeRepository(DbTestContext context)
         {
             _context = context;
@@ -22,7 +21,6 @@ namespace NoviSDP2.Repository
         {
             _context.Add(employee);
             await _context.SaveChangesAsync();
-        
         }
 
         public Employee Get(int id)
@@ -34,7 +32,6 @@ namespace NoviSDP2.Repository
         {
             return _context.Employees
                     .Include(e => e.Items);
-
         }
 
         public IEnumerable<Item> GetItems(int employeeId)
@@ -46,7 +43,6 @@ namespace NoviSDP2.Repository
         {
             throw new NotImplementedException();
         }
-
 
         public void Delete(int id)
         {
@@ -63,5 +59,4 @@ namespace NoviSDP2.Repository
             _context.SaveChanges();
         }
     }
-
 }

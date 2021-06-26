@@ -8,13 +8,8 @@ namespace NoviSDP2.Models
 {
     public class Student : Person
     {
-       
-
- 
         public IEnumerable<Checkout> Checkouts { get; set; }
         public IEnumerable<Hold> Holds { get; set; }
-      
-     
         public string Major { get; set; }
 
     }

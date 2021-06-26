@@ -38,7 +38,6 @@ namespace NoviSDP2
         public void ConfigureServices(IServiceCollection services)
         {
 
-
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<ICheckoutRepository, CheckoutRepository>();
@@ -48,7 +47,6 @@ namespace NoviSDP2
             services.AddDbContext<DbTestContext>(options => options.UseInMemoryDatabase("TestString")
             .EnableSensitiveDataLogging()
             );
-
 
             //Addidentity registrers the services
             services.AddIdentity<Person, IdentityRole<int>>(config => {
@@ -60,8 +58,6 @@ namespace NoviSDP2
               
             })
                     .AddEntityFrameworkStores<DbTestContext>()
-                  
-                   
 
                     .AddDefaultTokenProviders();
 
@@ -72,15 +68,12 @@ namespace NoviSDP2
                 config.Password.RequireNonAlphanumeric = false;
                 config.Password.RequireUppercase = false;
 
-
             })
 
                                 .AddSignInManager<SignInManager<Student>>()
                                 .AddRoles<IdentityRole<int>>()
-
                                 .AddDefaultTokenProviders()
                                 .AddEntityFrameworkStores<DbTestContext>();
-
 
             //services.AddAuthorization(config =>
             //{
@@ -101,11 +94,7 @@ namespace NoviSDP2
             }
             );
 
-
-
             services.AddControllersWithViews();
-
-
         }
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void  Configure(IApplicationBuilder app, DbTestContext context,IWebHostEnvironment env, RoleManager<IdentityRole<int>> roleManager, UserManager<Person> userManager)
@@ -133,14 +122,11 @@ namespace NoviSDP2
 
             app.UseRouting();
 
-
             // who is the visitor?
             app.UseAuthentication();
 
             // check if the visitor is allowed
             app.UseAuthorization();
-
-
 
             app.UseEndpoints(endpoints =>
             {
@@ -148,15 +134,12 @@ namespace NoviSDP2
    
             });
 
-
             //Here is initialize the DB with some mock data
             DbInitialize.Init(app);
             RolesData.SeedRoles(roleManager).Wait();
             DbInitialize.Initialize(context,userManager, roleManager).Wait();
-          
-          
-        }
 
+        }
     }
 
     public static class IdentityExtensions

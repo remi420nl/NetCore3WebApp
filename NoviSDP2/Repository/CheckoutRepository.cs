@@ -17,7 +17,6 @@ namespace NoviSDP2.Repository
         {
             _context = context;
         }
-
         public void Add(Checkout checkout)
         {
             _context.Add(checkout);
@@ -34,7 +33,6 @@ namespace NoviSDP2.Repository
 
             _context.Remove(checkout);
 
-
             //check if there is any hold on this item
             var holds = CheckHolds(itemId);
 
@@ -45,24 +43,16 @@ namespace NoviSDP2.Repository
                 var student = oldest.Student;
                 var months = oldest.chosenMonths;
 
-               
-
                 _context.Remove(oldest);
 
                 CheckoutItem(item ,student, months);
 
-              
                 return;
             }
-
-
-          
-
 
             UpdateStatus(itemId, "Beschikbaar");
 
             _context.SaveChanges();
-
         }
 
 
@@ -77,7 +67,6 @@ namespace NoviSDP2.Repository
             //todo: some nullchecks here
 
             item.Status = status;
-          
         }
 
         public IEnumerable<Hold> CheckHolds(int itemId)
@@ -93,7 +82,6 @@ namespace NoviSDP2.Repository
             // save the current time and add the chosen month amount
             var time = DateTime.Now;
             var returnTime = time.AddMonths(months);
-
 
             var checkout = new Checkout
             {
@@ -136,7 +124,6 @@ namespace NoviSDP2.Repository
 
         public bool IsCheckedOut(int itemId)
         {
-       
             return _context.Checkouts.Where(c => c.Item.Id == itemId).Any();
         }
 
@@ -148,7 +135,6 @@ namespace NoviSDP2.Repository
 
         public string GetReturnDate(int itemId)
         {
-            
             var checkout = _context.Checkouts
                 .Include(c => c.Item)
                 .FirstOrDefault(c => c.Item.Id == itemId);
@@ -156,11 +142,7 @@ namespace NoviSDP2.Repository
             if (checkout != null)
                 return checkout.Until.ToString();
 
-
             return "Niet uitgeleend";
-                
-       
-
         }
 
         public IEnumerable<Hold> CheckHoldsForUser(int id)

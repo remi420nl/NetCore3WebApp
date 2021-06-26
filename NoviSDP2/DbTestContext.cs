@@ -23,8 +23,5 @@ namespace NoviSDP2
         public DbSet<Hold> Holds { get; set; }
         public DbSet<Status> Status { get; set; }
 
-    
-    
-
     }
 }

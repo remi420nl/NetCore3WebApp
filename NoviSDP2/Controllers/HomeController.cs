@@ -19,24 +19,20 @@ namespace NoviSDP2.Controllers
 {
     public class HomeController : Controller
     {
-      
         private readonly UserManager<Person> _userManager;
         private readonly SignInManager<Person> _signinManager;
-  
+
         private readonly IAuthorizationService _authorization;
         private readonly DbTestContext _context;
         private readonly RoleManager<IdentityRole<int>> _roleManager;
 
-       
         private readonly IItemRepository _itemRep;
 
-
-       
         public HomeController(
-            
+
             UserManager<Person> employeeManager,
             SignInManager<Person> employeeSignin,
-        
+
             RoleManager<IdentityRole<int>> roleManager,
           IAuthorizationService authorization,
           DbTestContext context,
@@ -45,26 +41,22 @@ namespace NoviSDP2.Controllers
         {
             _userManager = employeeManager;
             _signinManager = employeeSignin;
-     
+
             _authorization = authorization;
             _context = context;
             _roleManager = roleManager;
-     
+
             _itemRep = itemRep;
         }
 
-
         public IActionResult Index()
         {
-           
-
 
             var items = _itemRep.GetAll();
-            if(_userManager.GetUserName(User) == null)
+            if (_userManager.GetUserName(User) == null)
             { ViewBag.Name = "Gebruiker"; }
             else
             {
-
                 // Getting Name property of Person instance by looking up the Identy Username in the DB
                 try { _ = _context.Persons.FirstOrDefault(user => user.UserName == _userManager.GetUserName(User)).Name; }
                 catch (NullReferenceException)
@@ -73,40 +65,33 @@ namespace NoviSDP2.Controllers
                     return View(items);
                 }
 
-               var  name = _context.Persons.FirstOrDefault(user => user.UserName == _userManager.GetUserName(User)).Name;
-            
-            ViewBag.Name = name; }
+                var name = _context.Persons.FirstOrDefault(user => user.UserName == _userManager.GetUserName(User)).Name;
+
+                ViewBag.Name = name;
+            }
 
             return View(items);
         }
 
 
-     
-
-
-
-      [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-           
 
             if (!ModelState.IsValid) { return View(); };
 
             var user = await _userManager.FindByNameAsync(model.UserName);
 
-
-     
             if (user != null)
             {
-               var result = await _signinManager.PasswordSignInAsync(user, model.Password,false,false);
-              
+                var result = await _signinManager.PasswordSignInAsync(user, model.Password, false, false);
+
                 if (result.Succeeded)
                 {
 
-
                     var claims = new List<Claim>()
             {
-               
+
                  new Claim(ClaimTypes.IsPersistent, model.RememberMe.ToString())
                 };
 
@@ -116,14 +101,10 @@ namespace NoviSDP2.Controllers
 
                     await HttpContext.SignInAsync(userPrincipal);
 
-
                     return RedirectToAction("Index");
 
-             
                 }
-            
 
-          
             }
 
             ViewBag.Login = "Gebruker niet gevonden";
@@ -132,29 +113,17 @@ namespace NoviSDP2.Controllers
 
         public IActionResult Login()
         {
-           
-
             return View();
         }
-
-   
-
-
- 
-
 
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            
-
             var result = new IdentityResult { };
-
 
             if (ModelState.IsValid)
             {
-
                 if (model.IdentyRole == 2)
                 {
                     var user = new Student
@@ -171,21 +140,15 @@ namespace NoviSDP2.Controllers
 
                     result = await _userManager.CreateAsync(user, model.Password);
 
-
                     if (result.Succeeded)
                     {
-
-
 
                         await _userManager.AddToRoleAsync(user, "Student");
 
                         return RedirectToAction("Login");
 
                     }
-
                 }
-
-
 
                 if (model.IdentyRole == 1)
                 {
@@ -198,17 +161,13 @@ namespace NoviSDP2.Controllers
                         Email = model.Email,
                         Department = model.Info,
                         SecurityStamp = Guid.NewGuid().ToString()
-                        
-                    };
 
+                    };
 
                     result = await _userManager.CreateAsync(user, model.Password);
 
-
-
                     if (result.Succeeded)
                     {
-
 
                         await _userManager.AddToRoleAsync(user, "Medewerker");
 
@@ -223,42 +182,24 @@ namespace NoviSDP2.Controllers
                 ViewBag.Error = result.ToString();
             }
 
-           
             model.IdentyRoles = _roleManager.Roles.ToList();
             return View(model);
-
         }
-
-     
 
         public async Task<IActionResult> LogOut()
         {
             await _signinManager.SignOutAsync();
-        
 
             return RedirectToAction("index");
         }
 
-
         public IActionResult Register()
         {
-            
-
             var model = new RegisterViewModel
             {
-               IdentyRoles = _roleManager.Roles.ToList()
-        };
-
-          
+                IdentyRoles = _roleManager.Roles.ToList()
+            };
             return View(model);
         }
-
-
-
-      
-      
     }
-
-
-
 }

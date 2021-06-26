@@ -16,7 +16,6 @@ namespace NoviSDP2.Repository
         {
             _context = context;
         }
-
         public Student Get(int studentId)
         {
             return GetAll()
